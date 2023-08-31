@@ -8,7 +8,8 @@ HelixNightbane
 
 # Installation:
  - Requires Decal / Virindi View System (comes with virindi bundle)
- - Install [DoThingsBotInstaller-2.0.0.7.exe](/uploads/023a0f5cd4e53533febf30ac5b994a0f/DoThingsBotInstaller-2.0.0.7.exe)
+ - Install .msi package and run (default save location C:\Games\Decal Plugins\DoThingsBot)
+ - Add DoThingsBot.dll to Decal
     
 # How to use:
  - The AC window cannot be minimized while the bot is running.
