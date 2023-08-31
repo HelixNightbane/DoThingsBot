@@ -1,4 +1,6 @@
 CHANGELOG
+2.0.0.8
+* Fix Buff profile for treestats to include Jump and Mana Conversion
 2.0.0.6
 * Add support for the following infinite rares:
   * Infinite Leather, Infinite Elaborate Dried Rations, Infinite Simple Dried Rations, Perennial Argenory Dye, Perennial Berimphur Dye, Perennial Botched Dye, Perennial Colban Dye, Perennial Hennacin Dye, Perennial Lapyan Dye, Perennial Minalim Dye, Perennial Relanim Dye, Perennial Thananim Dye, Perennial Verdalim Dye.
