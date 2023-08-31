@@ -1,0 +1,29 @@
+<tools>
+	<tool name="Alembic" whereToAcquire="can be purchased from Archmage Yuzai Zhen at 61.4S, 82.5E in Mayoi" />
+	<tool name="Baking Pan" whereToAcquire="can be purchased from Grocer Riku Ryu at 61.8S, 81.8E in Mayoi" />
+	<tool name="Barbed Fletching Tool" whereToAcquire="Dropped by the Mausoleum Guardian in the Lower Empyrean Mausoleum at 23.4S, 5.8E near Yaraq" link="https://asheron.fandom.com/wiki/Barbed_Fletching_Tool" />
+	<tool name="Brew Kettle" whereToAcquire="is a quest reward from Brewmaster Quest" link="https://asheron.fandom.com/wiki/Brewmaster_Quest" />
+	<tool name="Carving Knife" whereToAcquire="can be purchased from Fispur Ansel the Grocer at 42.2N, 33.6E in Holtburg" />
+	<tool name="Chorizite Fletching Tool" whereToAcquire="not sure where to get this..." link="https://asheron.fandom.com/wiki/Chorizite_Fletching_Tool" />
+	<tool name="Cooking Pot" whereToAcquire="can be purchased from Acina Hilmad the Grocer at 25.7N, 48.5E in Cragstone" />
+	<tool name="Crucible" whereToAcquire="can be purchased from Archmage Zarri ibn Khaybi at 41.9S, 16.2E in Xarabydun (underground)" />
+	<tool name="Drudge Shaped Cookie Cutter" whereToAcquire="can be purchased from Farmer Khurah al-Rujarkir at 41.9S, 16.2E in Xarabydun" />
+	<tool name="Eye Dropper" whereToAcquire="can be purchased from Magus Gondibyr Langarl at 25.8N, 49.4E in Cragstone" />
+	<tool name="Frying Pan" whereToAcquire="can be purchased from Ynarre the Grocer at 10.2N, 58.5E in Rithwic" />
+	<tool name="Hammer" whereToAcquire="can be purchased from Shopkeeper Renald the Elder at 42.1N, 33.8E in Holtburg" />
+	<tool name="Handle Mold" whereToAcquire="can be purchased from Shopkeeper Renald the Elder at 42.1N, 33.8E in Holtburg" />
+	<tool name="Heavy Grinder" whereToAcquire="can be purchased from Shopkeeper Renald the Elder at 42.1N, 33.8E in Holtburg" />
+	<tool name="Human Shaped Cookie Cutter" whereToAcquire="can be purchased from Kamira Mohonoko the Provisioner at 74.3S, 84.3E in Kryst" />
+	<tool name="Intricate Carving Tool" whereToAcquire="can be purchased from Shopkeeper Renald the Elder at 42.1N, 33.8E in Holtburg" />
+	<tool name="Lapping Plate" whereToAcquire="can be purchased from Monyra the Jeweler at 42.6N, 33.9E in Holtburg" />
+	<tool name="Lugian Shaped Cookie Cutter" whereToAcquire="can be purchased from Lubrik the Resupplier at 77.4S, 28.2E in Linvak Tukal, NE Corner"/>
+	<tool name="Metal Press" whereToAcquire="can be purchased from Shopkeeper Gonjoku Ryumi at 33.7S, 72.8E in Shoushi" />
+	<tool name="Mortar and Pestle" whereToAcquire="can be purchased from Master Celdiseth the Archmage at 86.6N, 21.6E outside Mayoi" />
+	<tool name="Noodle Cutter" whereToAcquire="can be purchased from Hau Ji Tan the Grocer at 33.3S, 73.1E in Shoushi" />
+	<tool name="Pumpkin Cookie Cutter" whereToAcquire="is dropped by Pumpkin Buffer (seasonal), Pumpkin Kin (seasonal), Harvest Reaper (seasonal)" />
+	<tool name="Sheet Metal Form" whereToAcquire="can be purchased from Shopkeeper Renald the Elder at 42.1N, 33.8E in Holtburg" />
+	<tool name="Smelting Pot" whereToAcquire="can be purchased from Master Celdiseth the Archmage at 86.6N, 21.6E outside Mayoi" />
+	<tool name="Splitting Tool" whereToAcquire="can be purchased from Master Celdiseth the Archmage at 86.6N, 21.6E outside Mayoi" />
+	<tool name="Wedding Cake Knife" whereToAcquire="can be purchased from any Wedding Planner" />
+	<tool name="Whittling Knife" whereToAcquire="can be purchased from Shopkeeper Renald the Elder at 42.1N, 33.8E in Holtburg" />
+</tools>

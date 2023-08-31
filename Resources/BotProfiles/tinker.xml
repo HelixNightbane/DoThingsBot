@@ -1,0 +1,13 @@
+﻿<profile name="tinker" aliases="">
+  <spell family="CREATURE_ENCHANTMENT_MASTERY" />
+  <spell family="FOCUS" />
+  <spell family="WILLPOWER" />
+  <spell family="ARCANE_ENLIGHTENMENT" />
+  <spell family="COORDINATION" />
+  <spell family="ENDURANCE" />
+  <spell family="STRENGTH" />
+  <spell family="WEAPON_TINKERING_EXPERTISE" />
+  <spell family="MAGIC_ITEM_TINKERING_EXPERTISE" />
+  <spell family="ITEM_TINKERING_EXPERTISE" />
+  <spell family="ARMOR_TINKERING_EXPERTISE" />
+</profile>

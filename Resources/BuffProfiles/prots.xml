@@ -1,0 +1,10 @@
+<profile name="prots" aliases="protections">
+ <spell family="ACID_PROTECTION" />
+ <spell family="BLUDGEONING_PROTECTION" />
+ <spell family="COLD_PROTECTION" />
+ <spell family="LIGHTNING_PROTECTION" />
+ <spell family="FIRE_PROTECTION" />
+ <spell family="PIERCING_PROTECTION" />
+ <spell family="BLADE_PROTECTION" />
+ <spell family="AURA_OF_DEFENDER" />
+</profile>

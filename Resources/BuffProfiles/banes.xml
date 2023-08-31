@@ -1,0 +1,10 @@
+<profile name="banes" aliases="bane armor">
+  <spell family="ACID_BANE" />
+  <spell family="BLUDGEON_BANE" />
+  <spell family="FROST_BANE" />
+  <spell family="LIGHTNING_BANE" />
+  <spell family="FLAME_BANE" />
+  <spell family="PIERCING_BANE" />
+  <spell family="BLADE_BANE" />
+  <spell family="IMPENETRABILITY" />
+</profile>

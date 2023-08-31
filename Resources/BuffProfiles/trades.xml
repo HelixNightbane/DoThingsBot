@@ -1,0 +1,15 @@
+﻿<profile name="trades" aliases="">
+  <spell profile="xpchain" />
+  <spell family="STRENGTH" />
+  <spell family="ENDURANCE" />
+  <spell family="QUICKNESS" />
+  <spell family="COORDINATION" />
+  <spell family="FOCUS" />
+  <spell family="WILLPOWER" />
+  <spell family="ARCANE_ENLIGHTENMENT" />
+  <spell family="FLETCHING_MASTERY" />
+  <spell family="ALCHEMY_MASTERY" />
+  <spell family="COOKING_MASTERY" />
+  <spell family="LOCKPICK_MASTERY" />
+  <spell family="SPRINT" />
+</profile>

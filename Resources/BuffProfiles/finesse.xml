@@ -1,0 +1,8 @@
+﻿<profile name="finesse" aliases="fw finesseweapons">
+  <spell family="FINESSE_WEAPON_MASTERY" />
+  <spell family="DUAL_WIELD_MASTERY" />
+  <spell family="SHIELD_MASTERY" />
+  <spell profile="_melee" />
+  <spell profile="_generic" />
+  <spell profile="banes" />
+</profile>

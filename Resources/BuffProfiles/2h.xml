@@ -1,0 +1,5 @@
+<profile name="2h" aliases="twohand twohanded twohandedweapons">
+ <spell family="TWO_HANDED_COMBAT_MASTERY" />
+ <spell profile="_melee" />
+ <spell profile="_generic" />
+</profile>

@@ -1,0 +1,5 @@
+<profile name="mage" aliases="war">
+ <spell family="WAR_MAGIC_MASTERY" />
+ <spell family="AURA_OF_SPIRIT_DRINKER" />
+ <spell profile="_generic" />
+</profile>

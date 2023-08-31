@@ -1,0 +1,8 @@
+<profile name="idle" aliases="">
+ <spell family="CREATURE_ENCHANTMENT_MASTERY" />
+ <spell family="FOCUS" />
+ <spell family="WILLPOWER" />
+ <spell family="ARCANE_ENLIGHTENMENT" />
+ <spell family="LEADERSHIP_MASTERY" />
+ <spell family="FEALTY" />
+</profile>

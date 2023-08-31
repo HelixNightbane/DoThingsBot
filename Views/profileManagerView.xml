@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<view icon="0" title="DoThingsBot: Buff Profile Manager" width="556" height="348">
+		<control progid="DecalControls.FixedLayout" clipped="">
+			<control progid="DecalControls.StaticText" name="BuffProfileManagerEditProfileLabel" left="8" top="8" width="24" height="16" text="Edit:"/>
+			<control progid="DecalControls.Choice" name="BuffProfileManagerEdit" left="40" top="8" width="208" height="19"/>
+			<control progid="DecalControls.StaticText" name="BuffProfileManagerAddLabel" left="296" top="8" width="56" height="16" text="Add New:"/>
+			<control progid="DecalControls.Edit" name="BuffProfileManagerNewName" left="352" top="8" width="152" height="16" imageportalsrc="4726" text=""/>
+			<control progid="DecalControls.PushButton" name="BuffProfileManagerAddNew" left="512" top="8" width="32" height="16" text="Go"/>
+			<control progid="DecalControls.StaticText" name="BuffProfileManagerCurrentSpellsLabel" left="280" top="48" width="272" height="16" justify="Center" text="Profile Spells"/>
+			<control progid="DecalControls.StaticText" name="BuffProfileManagerAvailableSpellsLabel" left="8" top="48" width="216" height="16" justify="Center" text="Available Spells / Profiles"/>
+			<control progid="DecalControls.PushButton" name="BuffProfileManagerSaveProfile" left="440" top="288" width="104" height="24" text="Save Profile"/>
+			<control progid="DecalControls.List" name="BuffProfileManagerProfileSpells" left="280" top="64" width="276" height="216">
+				<column progid="DecalControls.IconColumn" name="BuffProfileManagerProfileSpellsIconCol" fixedwidth="14"/>
+				<column progid="DecalControls.TextColumn" name="BuffProfileManagerProfileSpellsNameCol" fixedwidth="185"/>
+				<column progid="DecalControls.IconColumn" name="BuffProfileManagerProfileSpellsMoveUpCol" fixedwidth="14"/>
+				<column progid="DecalControls.IconColumn" name="BuffProfileManagerProfileSpellsMoveDownCol" fixedwidth="14"/>
+				<column progid="DecalControls.TextColumn" name="BuffProfileManagerProfileSpellsIdCol" fixedwidth="1"/>
+			</control>
+			<control progid="DecalControls.List" name="BuffProfileManagerAvailableSpells" left="0" top="64" width="232" height="216">
+				<column progid="DecalControls.IconColumn" name="BuffProfileManagerAvailableSpellsIconCol" fixedwidth="15"/>
+				<column progid="DecalControls.TextColumn" name="BuffProfileManagerAvailableSpellsNameCol" fixedwidth="225"/>
+				<column progid="DecalControls.TextColumn" name="BuffProfileManagerAvailableSpellsIdCol" fixedwidth="1"/>
+			</control>
+			<control progid="DecalControls.PushButton" name="BuffProfileManagerMoveSpell" left="240" top="148" width="32" height="32" text="&lt;&lt;&lt;"/>
+			<control progid="DecalControls.StaticText" name="BuffProfileManagerAliasesLabel" left="8" top="32" width="168" height="16" text="Aliases (separated by spaces):"/>
+			<control progid="DecalControls.Edit" name="BuffProfileManagerAliases" left="176" top="32" width="368" height="16" imageportalsrc="4726" text=""/>
+			<control progid="DecalControls.StaticText" name="BuffProfileManagerFilterAvailableLabel" left="8" top="282" width="200" height="16" text="Filter Available By:"/>
+			<control progid="DecalControls.Checkbox" name="BuffProfileManagerShowProfiles" left="8" top="300" width="64" height="16" text="Profiles"/>
+			<control progid="DecalControls.Checkbox" name="BuffProfileManagerShowCreature" left="72" top="300" width="64" height="16" text="Creature"/>
+			<control progid="DecalControls.Checkbox" name="BuffProfileManagerShowItem" left="136" top="300" width="56" height="16" text="Item"/>
+			<control progid="DecalControls.Checkbox" name="BuffProfileManagerShowLife" left="184" top="300" width="48" height="16" text="Life"/>
+		</control>
+
+</view>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0"?>
+<view icon="9496" title="DoThingsBot - Confirm" width="180" height="145">
+      <control progid="DecalControls.FixedLayout" clipped="">
+        <control progid="DecalControls.StaticText" name="UIConfirmHeading" left="10" top="10" width="180" height="80" text="Confirm message..."/>
+        
+        <control progid="DecalControls.PushButton" name="UICancel" left="15" top="90" width="60" height="25" text="Cancel" fontstyle="bold"/>
+        <control progid="DecalControls.PushButton" name="UIConfirm" left="105" top="90" width="60" height="25" text="Confirm" fontstyle="bold"/>
+      </control>
+</view>

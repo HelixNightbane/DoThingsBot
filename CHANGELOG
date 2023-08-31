@@ -1,0 +1,107 @@
+CHANGELOG
+2.0.0.6
+* Add support for the following infinite rares:
+  * Infinite Leather, Infinite Elaborate Dried Rations, Infinite Simple Dried Rations, Perennial Argenory Dye, Perennial Berimphur Dye, Perennial Botched Dye, Perennial Colban Dye, Perennial Hennacin Dye, Perennial Lapyan Dye, Perennial Minalim Dye, Perennial Relanim Dye, Perennial Thananim Dye, Perennial Verdalim Dye.
+  * To enable them on your bot, navigate to Bots -> Infinites in the main ui and add your infinite rare.  The bot will now respond to the following commands based on the item you added: dye, rations, leather
+* Add navigation support, this will nav your bot back to its stickyposition if it manages to wander.
+* Fix gift messages when amount greater than 999 (commas)
+* Fix issue where bot resumable job would get corrupt and bot would not do anything until manually cleared.
+* Fix issue where announcements would fully stop when low on components
+
+2.0.0.5
+* Fix ACE tinkering
+* Fix trade spamming where bot wasnt returning items properly
+* More better crafting on ACE (still kinda wonky, but mostly works?)
+
+2.0.0.4
+* Add portal gems to low components warnings and comps command
+
+2.0.0.3
+* Small tweak for new ACE trade code.  Just a check to make sure a) we dont already have a trade window open, b) its with the right person.
+* Buggy bugs
+* Added recipes to make vials, instead of a full dye job
+* Fix bug in queue system for single buff requests
+
+2.0.0.2
+* Fix issue when returning items that could throw an exception
+
+2.0.0.1
+* Fix recipes with two of the same item in the ingredients (Quality Pyreal Ingot)
+* Fixed Hot Chocolate with Marshmallows recipe
+
+2.0.0.0
+* Added crafting support ('craft' command, 390 recipes currently supported)
+* Added ability for bot to recover in progress job and work queue after shutdown / stopping
+* LostItems is much better
+* Chat spam -b- now appears at the end of the message so it works with mag-tools filtering
+* Split all bot buff/craft/portal/tinker ui into their own sections
+* Updates to trade event code to hopefully fix a few issues with prematurely closing trade
+* Added optional "reset" command to kill the client in the event it gets stuck
+
+1.1.8.0
+* Fix bug with trade timeouts (hacky)
+
+1.1.7.0
+* Initial support for rares/beers/food
+* Fix bug in lostitems
+
+1.1.6.0
+* Ignore player summoned combat pets (dangerous monster logoff)
+* Fix exception during add item to trade event, this should help with bot eating items
+
+1.1.5.0
+* Added update checker for new versions on login
+* Fix corrupted stats.json
+
+1.1.4.0
+* Exposed "restore stamina/mana at" settings
+* Added option to logoff when dangerous monsters are nearby
+
+1.1.3.0
+* Fix tinker success/fail message matching on ACE servers
+
+1.1.2.0
+* Fix foci check when you have infused life/item/creature augs
+
+1.1.1.0
+* Fix tinkering timeout spam
+* Fix low comp warnings when low comp minimum is set to 0
+
+1.1.0.0
+* Added buffbot (Edit buff and bot profiles ingame with new ui)
+* Fixed wandering bot (hopefully?)
+* Added PortalGem summoning support
+* Added Stats
+* Added Low Component warnings
+* Bot now responds to 'whereto' in local chat
+* Better equipment managment
+* Fix config loading when switching characters
+* Much better spell support
+
+1.0.0.1
+* Fixed ability to add brass to wands...
+
+1.0.0.0
+* Fixed issue where bot thought it could add sunstone to wands and iron to bows
+* Added xml based config that should be easier to edit
+* Fixed bug where bot could log up if it got a double message
+* Cleaned up logging
+
+0.1.1.0
+* Added ability to clear/open logs within the plugin window
+* Added startup command/message to announcements tab, leave blank for none. (announcements now only go out after inital delay)
+* Added ability to disable all announcements from announcements tab.
+* Added /dtb forcebuff command
+* Added option keep tinkering equipment equipped for x seconds after tink job, so consecutive tinks are faster (default 30s).
+* Added option in main config tab to respond to unknown commands
+* Fixed issue where items added to equipment lists that disappeared caused the list to break.
+* Don't send duplicate messages within time window (config file only currently, DontResendDuplicateMessagesWindow, default 2s).
+* Fixed bug where equipment spells could cause infinite buffing loop
+* Force add -b- to all bot chat/emote spam
+* Added seconds to timestamp in debuglog.txt
+* Speed up item equip/dequip cycle
+* Clean up help command response
+* Tested on 1.25 (need rare/foolproof support)
+
+0.1.0.0
+* Initial Release

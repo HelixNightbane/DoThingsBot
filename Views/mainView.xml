@@ -1,0 +1,257 @@
+<?xml version="1.0"?>
+<view icon="5000" title="DoThingsBot" width="350" height="250">
+  <control progid="DecalControls.Notebook" name="mainTabView">
+    <page label="Main">
+      <control progid="DecalControls.FixedLayout" clipped="">
+        <control progid="DecalControls.Checkbox" name="UIBotEnabled" left="8" top="8" width="140" height="20" text="Bot Enabled"/>
+        <control progid="DecalControls.Checkbox" name="UIBotBuffBotEnabled" left="16" top="28" width="140" height="20" text="Enable Buff Bot"/>
+        <control progid="DecalControls.Checkbox" name="UIBotCraftBotEnabled" left="16" top="48" width="140" height="20" text="Enable Craft Bot"/>
+        <control progid="DecalControls.Checkbox" name="UIBotPortalsEnabled" left="16" top="68" width="140" height="20" text="Enable Portal Bot"/>
+        <control progid="DecalControls.Checkbox" name="UIBotTinkerBotEnabled" left="16" top="88" width="140" height="20" text="Enable Tinker Bot"/>
+        
+        <control progid="DecalControls.StaticText" name="UIImportantHeading" left="95" top="110" width="345" height="20" text="!!! IMPORTANT PLEASE READ !!!" fontstyle="bold"/>
+        <control progid="DecalControls.StaticText" name="UIImportantTextACWindow" left="30" top="130" width="295" height="40" text="The AC window CANNOT be minimized, but window focus is not required."/>
+
+        <control progid="DecalControls.StaticText" name="UIImportantTextIssues" left="14" top="170" width="345" height="20" text="If you encounter an issue please report it on the gitlab page."/>
+        <control progid="DecalControls.StaticText" name="UIGitlabLink" left="84" top="190" width="345" height="20" text="https://gitlab.com/trevis/dothingsbot"/>
+      </control>
+    </page>
+    <page label="Equipment">
+      <control progid="DecalControls.Notebook" name="equipmentTabView">
+        <page label="Idle">
+          <control progid="DecalControls.FixedLayout" clipped="">
+            <control progid="DecalControls.List" name="UIEquipmentIdleList" top="5" width="350" height="165">
+              <column progid="DecalControls.IconColumn" name="UIEquipmentIdleIconCol" fixedwidth="15"/>
+              <column progid="DecalControls.TextColumn" name="UIEquipmentIdleNameCol" fixedwidth="340"/>
+              <column progid="DecalControls.TextColumn" name="UIEquipmentIdleIdCol" fixedwidth="10"/>
+            </control>
+            
+            <control progid="DecalControls.StaticText" name="UIEquipmentIdleRemoveLabel" left="5" top="175" width="170" height="40" text="Click a list item to remove."/>
+            <control progid="DecalControls.PushButton" name="UIEquipmentIdleAddSelected" left="180" top="175" width="80" height="17" text="Add Selected" fontstyle="bold"/>
+            <control progid="DecalControls.PushButton" name="UIEquipmentIdleAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
+          </control>
+        </page>
+        <page label="Buffing">
+          <control progid="DecalControls.FixedLayout" clipped="">
+            <control progid="DecalControls.List" name="UIEquipmentBuffingList" top="5" width="350" height="165">
+              <column progid="DecalControls.IconColumn" name="UIEquipmentBuffingIconCol" fixedwidth="15"/>
+              <column progid="DecalControls.TextColumn" name="UIEquipmentBuffingNameCol" fixedwidth="330"/>
+              <column progid="DecalControls.TextColumn" name="UIEquipmentBuffingIdCol" fixedwidth="10"/>
+            </control>
+            
+            <control progid="DecalControls.StaticText" name="UIEquipmentBuffingRemoveLabel" left="5" top="175" width="170" height="40" text="Click a list item to remove."/>
+            <control progid="DecalControls.PushButton" name="UIEquipmentBuffingAddSelected" left="180" top="175" width="80" height="17" text="Add Selected" fontstyle="bold"/>
+            <control progid="DecalControls.PushButton" name="UIEquipmentBuffingAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
+          </control>
+        </page>
+        <page label="Crafting">
+          <control progid="DecalControls.FixedLayout" clipped="">
+            <control progid="DecalControls.List" name="UIEquipmentCraftingList" top="5" width="350" height="165">
+              <column progid="DecalControls.IconColumn" name="UIEquipmentCraftingIconCol" fixedwidth="15"/>
+              <column progid="DecalControls.TextColumn" name="UIEquipmentCraftingNameCol" fixedwidth="330"/>
+              <column progid="DecalControls.TextColumn" name="UIEquipmentCraftingIdCol" fixedwidth="10"/>
+            </control>
+
+            <control progid="DecalControls.StaticText" name="UIEquipmentCraftingRemoveLabel" left="5" top="175" width="170" height="40" text="Click a list item to remove."/>
+            <control progid="DecalControls.PushButton" name="UIEquipmentCraftingAddSelected" left="180" top="175" width="80" height="17" text="Add Selected" fontstyle="bold"/>
+            <control progid="DecalControls.PushButton" name="UIEquipmentCraftingAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
+          </control>
+        </page>
+        <page label="Tinkering">
+          <control progid="DecalControls.FixedLayout" clipped="">
+            <control progid="DecalControls.List" name="UIEquipmentTinkeringList" top="5" width="350" height="165">
+              <column progid="DecalControls.IconColumn" name="UIEquipmentTinkeringIconCol" fixedwidth="15"/>
+              <column progid="DecalControls.TextColumn" name="UIEquipmentTinkeringNameCol" fixedwidth="340"/>
+              <column progid="DecalControls.TextColumn" name="UIEquipmentTinkeringIdCol" fixedwidth="10"/>
+            </control>
+
+            <control progid="DecalControls.StaticText" name="UIEquipmentTinkeringRemoveLabel" left="5" top="175" width="170" height="40" text="Click a list item to remove."/>
+            <control progid="DecalControls.PushButton" name="UIEquipmentTinkeringAddSelected" left="180" top="175" width="80" height="17" text="Add Selected" fontstyle="bold"/>
+            <control progid="DecalControls.PushButton" name="UIEquipmentTinkeringAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
+          </control>
+        </page>
+      </control>
+    </page>
+    <page label="Bot">
+      <control progid="DecalControls.Notebook" name="botsTabView">
+        <page label="Buff">
+          <control progid="DecalControls.FixedLayout" clipped="" name="UIBuffBotLayout">
+            <control progid="DecalControls.Checkbox" name="UIBotBuffBotEnableTreeStatsBuffs" left="8" top="8" width="300" height="20" text="Enable TreeStats automatic buffs ('buff' command)"/>
+            <control progid="DecalControls.Checkbox" name="UIBotBuffBotEnableSingleBuffs" left="8" top="28" width="330" height="20" text="Enable single buffs (strength, coordination, warmagic, etc)"/>
+            <control progid="DecalControls.Checkbox" name="UIBotBuffBotAlwaysEnableBanes" left="8" top="48" width="330" height="20" text="Bane when no shield present on target (keep off)"/>
+
+            <control progid="DecalControls.StaticText" name="UIBotBuffBotLimitBuffLevelLabel" left="8" top="68" width="140" height="20" text="Limit other buffs to level:"/>
+            <control progid="DecalControls.Edit" name="UIBotBuffBotLimitBuffOtherLevel" left="150" top="66" width="20" height="18" text="7"/>
+
+            <control progid="DecalControls.StaticText" name="UIBotBuffBotLabelGetManaAt" left="8" top="96" width="100" height="16" text="Get Mana At:"/>
+            <control progid="DecalControls.StaticText" name="UIBotBuffBotLabelGetStaminaAt" left="8" top="128" width="100" height="16" text="Get Stamina At:"/>
+            <control progid="DecalControls.Slider" name="UIBotBuffBotGetManaAt" left="110" top="96" width="180" height="16" minimum="0" maximum="100" textcolor="0" vertical="0"/>
+            <control progid="DecalControls.Slider" name="UIBotBuffBotGetStaminaAt" left="110" top="128" width="180" height="16" minimum="0" maximum="100" textcolor="0" vertical="0"/>
+            <control progid="DecalControls.StaticText" name="UIBotBuffBotGetManaAtDisplay" left="304" top="96" width="32" height="16" text="50%"/>
+            <control progid="DecalControls.StaticText" name="UIBotBuffBotGetStaminaAtDisplay" left="304" top="128" width="32" height="16" text="50%"/>
+        
+            <control progid="DecalControls.PushButton" name="UIBotBuffBotReloadBuffProfiles" left="45" top="171" width="130" height="20" text="Reload Buff Profiles" fontstyle="bold"/>
+            <control progid="DecalControls.PushButton" name="UIBotBuffBotManageBuffProfiles" left="185" top="171" width="120" height="20" text="Manage Buff Profiles" fontstyle="bold"/>
+          </control>
+        </page>
+        <page label="Craft">
+          <control progid="DecalControls.FixedLayout" clipped="">
+            <control progid="DecalControls.Checkbox" name="UICraftBotPauseSessionForOtherJobs" left="8" top="8" width="328" height="20" text="Pause crafting sessions for tinkering/buff jobs."/>
+            <control progid="DecalControls.StaticText" name="UICraftBotLimitCraftingSessionsLabel" left="8" top="26" width="152" height="20" text="Limit crafting sessions to"/>
+            <control progid="DecalControls.Edit" name="UICraftBotLimitCraftingSessionsToSeconds" left="150" top="26" width="42" height="18" imageportalsrc="4726" text="300"/>
+            <control progid="DecalControls.StaticText" name="UICraftBotLimitCraftionsSessionsLabel2" left="195" top="26" width="112" height="20" text="seconds. (0 disables)"/>
+            <control progid="DecalControls.Checkbox" name="UICraftBotSkipMaxSuccessConfirmations" left="8" top="48" width="304" height="20" text="Skip user confirmation when 100% chance to craft."/>
+            <control progid="DecalControls.StaticText" name="UIKeepCraftEquipmentWhileIdleDelayLabel" left="8" top="68" width="320" height="20" text="Keep equipment on after job delay (secs, 0=disable):"/>
+            <control progid="DecalControls.Edit" name="UIKeepCraftEquipmentWhileIdleDelay" left="290" top="66" width="50" height="20" text="0" />
+          </control>
+        </page>
+        <page label="Portal">
+          <control progid="DecalControls.FixedLayout" clipped="">
+            <control progid="DecalControls.StaticText" name="UIBotPortalsPortalHeader" left="1" top="0" width="60" height="20" text="Portal" fontstyle="bold"/>
+            <control progid="DecalControls.StaticText" name="UIBotPortalsCommandHeader" left="60" top="0" width="80" height="20" text="Extra Cmd" fontstyle="bold"/>
+            <control progid="DecalControls.StaticText" name="UIBotPortalsLocationHeader" left="145" top="0" width="60" height="20" text="Location" fontstyle="bold"/>
+            <control progid="DecalControls.StaticText" name="UIBotPortalsHeadingHeader" left="300" top="0" width="60" height="20" text="Heading" fontstyle="bold"/>
+        
+            <control progid="DecalControls.StaticText" name="UIPrimaryPortalLocationLabel" left="1" top="20" width="60" height="20" text="Primary:"/>
+            <control progid="DecalControls.Edit" name="UIPrimaryPortalExtraCommand" left="60" top="20" width="80" height="20" text=""/>
+            <control progid="DecalControls.Edit" name="UIPrimaryPortalLocation" left="145" top="20" width="150" height="20" text=""/>
+            <control progid="DecalControls.Edit" name="UIPrimaryPortalHeading" left="300" top="20" width="30" height="20" text=""/>
+
+            <control progid="DecalControls.StaticText" name="UISecondaryPortalLocationLabel" left="1" top="45" width="60" height="20" text="Secondary:"/>
+            <control progid="DecalControls.Edit" name="UISecondaryPortalExtraCommand" left="60" top="45" width="80" height="20" text=""/>
+            <control progid="DecalControls.Edit" name="UISecondaryPortalLocation" left="145" top="45" width="150" height="20" text=""/>
+            <control progid="DecalControls.Edit" name="UISecondaryPortalHeading" left="300" top="45" width="30" height="20" text=""/>
+
+            <control progid="DecalControls.StaticText" name="UIPortalHeadingHelpLabel" left="32" top="65" width="315" height="20" text="(Heading 0 = North, 90 = East, 180 = South, 270 = West)"/>
+
+            <control progid="DecalControls.StaticText" name="UIPortalGemLowCountLabel" left="1" top="85" width="200" height="20" text="Portal Gem Low Comp Count (0 disables):"/>
+            <control progid="DecalControls.Edit" name="UIPortalGemLowCount" left="210" top="85" width="30" height="20" text=""/>
+            
+            <control progid="DecalControls.StaticText" name="UIPortalGemCommandsCommandLabel" left="4" top="105" width="75" height="20" text="Command"/>
+            <control progid="DecalControls.StaticText" name="UIPortalGemCommandsPortalGemLabel" left="122" top="105" width="100" height="20" text="Portal Gem"/>
+            <control progid="DecalControls.StaticText" name="UIPortalGemCommandsHeadingLabel" left="265" top="105" width="80" height="20" text="Heading"/>
+        
+            <control progid="DecalControls.List" name="UIPortalGemCommands" top="122" width="350" height="56">
+              <column progid="DecalControls.TextColumn" name="UIPortalGemCommandsCommandCol" fixedwidth="90"/>
+              <column progid="DecalControls.IconColumn" name="UIPortalGemCommandsPortalGemIconCol" fixedwith="15"/>
+              <column progid="DecalControls.TextColumn" name="UIPortalGemCommandsPortalGemCol" fixedwidth="155"/>
+              <column progid="DecalControls.TextColumn" name="UIPortalGemCommandsHeadingCol" fixedwidth="25"/>
+              <column progid="DecalControls.IconColumn" name="UIPortalGemCommandsDeleteIconCol" fixedwith="15"/>
+            </control>
+            <control progid="DecalControls.StaticText" name="UIPortalGemAddCommandLabel" left="4" top="182" width="65" height="20" text="Command:"/>
+            <control progid="DecalControls.Edit" name="UIPortalGemAddCommandText" left="65" top="180" width="80" height="18" text=""/>
+            <control progid="DecalControls.StaticText" name="UIPortalGemAddHeadingLabel" left="149" top="182" width="60" height="20" text="Heading:"/>
+            <control progid="DecalControls.Edit" name="UIPortalGemAddHeadingText" left="195" top="180" width="30" height="18" text="0"/>
+            <control progid="DecalControls.PushButton" name="UIPortalGemAddSelected" left="236" top="180" width="110" height="18" text="Add Selected Gem" fontstyle="bold" />
+
+          </control>
+        </page>
+        <page label="Tinker">
+          <control progid="DecalControls.FixedLayout" clipped="">
+            <control progid="DecalControls.Checkbox" name="UITinkerBotSkipMaxSuccessConfirmations" left="8" top="8" width="304" height="20" text="Skip user confirmation when 100% chance to tinker."/>
+            <control progid="DecalControls.StaticText" name="UIKeepTinkerEquipmentWhileIdleDelayLabel" left="8" top="28" width="320" height="20" text="Keep equipment on after job delay (secs, 0=disable):"/>
+            <control progid="DecalControls.Edit" name="UIKeepTinkerEquipmentWhileIdleDelay" left="290" top="26" width="50" height="20" text="0" />
+          </control>
+        </page>
+        <page label="Infinites">
+          <control progid="DecalControls.FixedLayout" clipped="">
+            <control progid="DecalControls.List" name="UIInfinitesList" top="5" width="350" height="165">
+              <column progid="DecalControls.IconColumn" name="UIInfinitesIconCol" fixedwidth="15"/>
+              <column progid="DecalControls.TextColumn" name="UIInfinitesNameCol" fixedwidth="340"/>
+              <column progid="DecalControls.TextColumn" name="UIInfinitesIdCol" fixedwidth="10"/>
+            </control>
+
+            <control progid="DecalControls.StaticText" name="UIInfinitesLabel" left="5" top="175" width="230" height="40" text="Click on a listed item to remove."/>
+            <control progid="DecalControls.PushButton" name="UIInfinitesAddSelected" left="240" top="175" width="100" height="17" text="Add Selected Item" fontstyle="bold"/>
+          </control>
+        </page>
+      </control>
+    </page>
+    <page label="Nav">
+      <control progid="DecalControls.FixedLayout" clipped="">
+        <control progid="DecalControls.Checkbox" name="UIEnableNav" left="8" top="16" width="228" height="16" text="Enable Navigation"/>
+        
+        <control progid="DecalControls.StaticText" name="UINavStickyPointLabel" left="8" top="64" width="64" height="16" text="Sticky Point:"/>
+        <control progid="DecalControls.StaticText" name="UINavStickyPoint" left="80" top="64" width="160" height="16" text="None"/>
+        <control progid="DecalControls.PushButton" name="UINavSetStickyPoint" left="248" top="56" width="96" height="24" text="Set Sticky Point"/>
+        
+        <control progid="DecalControls.StaticText" name="UINavMinDistanceLabel" left="8" top="128" width="252" height="16" text="Max distance to StickyPoint before navigating:"/>
+        <control progid="DecalControls.Edit" name="UINavMaxDistance" left="260" top="128" width="84" height="16" text=""/>
+      </control>
+    </page>
+    <page label="Announcements">
+      <control progid="DecalControls.FixedLayout" clipped="">
+        <control progid="DecalControls.Checkbox" name="UIAnnouncementsEnabled" left="5" top="5" width="165" height="20" text="Enable Announcements"/>
+        <control progid="DecalControls.Checkbox" name="UIAnnouncementsEnableStatSpam" left="175" top="5" width="165" height="20" text="Enable Stats Spam"/>
+
+        <control progid="DecalControls.StaticText" name="UIStartupCommandLabel" left="5" top="30" width="120" height="20" text="Startup Announce:"/>
+        <control progid="DecalControls.Edit" name="UIStartupCommand" left="100" top="30" width="245" height="20" text="/s " />
+        
+        <control progid="DecalControls.StaticText" name="UIAnnouncementsAnnounceIntervalLabel" left="5" top="55" width="230" height="20" text="Announce Interval (minutes):" fontstyle="bold"/>
+        <control progid="DecalControls.Edit" name="UIAnnouncementsAnnounceInterval" left="305" top="55" width="40" height="20" text="15"/>
+        <control progid="DecalControls.Edit" name="UIAnnouncementsNewMessage" left="" top="80" width="300" height="20" text="/s "/>
+        <control progid="DecalControls.PushButton" name="UIAnnouncementsAddNewMessage" left="305" top="80" width="40" height="20" text="Add" fontstyle="bold"/>
+
+        <control progid="DecalControls.List" name="UIAnnouncementsList" top="105" width="350" height="80">
+          <column progid="DecalControls.TextColumn" name="UIAnnouncementsListTextCol" fixedwidth="350"/>
+          <column progid="DecalControls.TextColumn" name="UIAnnouncementsListIndexCol" fixedwidth="0"/>
+        </control>
+
+        <control progid="DecalControls.StaticText" name="UIAnnouncementsRemoveHelpLabel" left="5" top="195" width="230" height="20" text="Click on a listed item to remove."/>
+      </control>
+    </page>
+    <page label="Logs">
+      <control progid="DecalControls.Notebook" name="logsTabView">
+        <page label="Messages">
+          <control progid="DecalControls.FixedLayout" clipped="">
+            <control progid="DecalControls.List" name="UILogsMessagesList" top="5" width="350" height="170">
+              <column progid="DecalControls.TextColumn" name="UILogsMessagesListTimeCol" fixedwidth="80"/>
+              <column progid="DecalControls.TextColumn" name="UILogsMessagesListSenderCol" fixedwith="100"/>
+              <column progid="DecalControls.TextColumn" name="UILogsMessagesListMessageCol" fixedwidth="170"/>
+            </control>
+            <control progid="DecalControls.PushButton" name="UILogsMessagesClearLogFile" left="75" top="178" width="90" height="17" text="Clear log file" fontstyle="bold"/>
+            <control progid="DecalControls.PushButton" name="UILogsMessagesOpenLogFile" left="185" top="178" width="90" height="17" text="Open log file" fontstyle="bold"/>
+          </control>
+        </page>
+        <page label="Gifts">
+          <control progid="DecalControls.FixedLayout" clipped="">
+            <control progid="DecalControls.List" name="UILogsGiftsList" top="5" width="350" height="170">
+              <column progid="DecalControls.TextColumn" name="UILogsGiftsListTimeCol" fixedwidth="80"/>
+              <column progid="DecalControls.TextColumn" name="UILogsGiftsListGiverCol" fixedwith="100"/>
+              <column progid="DecalControls.TextColumn" name="UILogsGiftsListItemCol" fixedwidth="170"/>
+            </control>
+            <control progid="DecalControls.PushButton" name="UILogsGiftsClearLogFile" left="75" top="178" width="90" height="17" text="Clear log file" fontstyle="bold"/>
+            <control progid="DecalControls.PushButton" name="UILogsGiftsOpenLogFile" left="185" top="178" width="90" height="17" text="Open log file" fontstyle="bold"/>
+          </control>
+        </page>
+        <page label="LostItems">
+          <control progid="DecalControls.FixedLayout" clipped="">
+            <control progid="DecalControls.List" name="UILogsLostItemsList" top="5" width="350" height="170">
+              <column progid="DecalControls.TextColumn" name="UILogsGiftsLostItemsOwnerCol" fixedwith="150"/>
+              <column progid="DecalControls.IconColumn" name="UILogsGiftsLostItemsIconCol" fixedwidth="15"/>
+              <column progid="DecalControls.TextColumn" name="UILogsGiftsLostItemsItemCol" fixedwidth="185"/>
+            </control>
+            <control progid="DecalControls.PushButton" name="UILostItemsScan" left="125" top="178" width="100" height="17" text="Scan for lost items" fontstyle="bold"/>
+          </control>
+        </page>
+      </control>
+    </page>
+    <page label="Config">
+      <control progid="DecalControls.FixedLayout" clipped="" name="UIConfigTabLayout">
+        <control progid="DecalControls.StaticText" name="UIDefaultHeadingLabel" left="8" top="8" width="320" height="20" text="Default Heading (0=N, 90=E, 180=S, 270=W):"/>
+        <control progid="DecalControls.Edit" name="UIDefaultHeading" left="290" top="8" width="50" height="17" text="0" />
+        <control progid="DecalControls.Checkbox" name="UIRespondToUnknownCommands" left="8" top="28" width="320" height="20" text="Respond to unknown commands"/>
+        <control progid="DecalControls.Checkbox" name="UIFastCastSelfBuffs" left="8" top="48" width="320" height="18" text="Fastcast self buffs"/>
+        <control progid="DecalControls.Checkbox" name="UIEnableResetCommand" left="8" top="68" width="320" height="18" text="Enable 'reset' command to kill client"/>
+        <control progid="DecalControls.StaticText" name="UILogOffWhenMonstersNearbyLabel" left="8" top="86" width="145" height="16" text="LogOff when mobs within"/>
+        <control progid="DecalControls.Edit" name="UIDangerousMonsterLogoffDistance" left="151" top="86" width="24" height="16" text=""/>
+        <control progid="DecalControls.StaticText" name="UILogOffMetersLabel" left="180" top="86" width="40" height="16" text="meters."/>
+        
+        <control progid="DecalControls.StaticText" name="UILowComponentsHeader" left="95" top="102" width="180" height="20" text="Low Component Warning Levels"/>
+
+        <control progid="DecalControls.PushButton" name="UIManageBotSpellProfiles" left="100" top="188" width="150" height="20" text="Manage Bot Spell Profiles" fontstyle="bold"/>
+
+      </control>
+    </page>
+  </control>
+</view>

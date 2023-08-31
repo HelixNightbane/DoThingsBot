@@ -1,0 +1,11 @@
+<profile name="buff" aliases="">
+ <spell family="CREATURE_ENCHANTMENT_MASTERY" />
+ <spell family="FOCUS" />
+ <spell family="WILLPOWER" />
+ <spell family="MANA_CONVERSION_MASTERY" />
+ <spell family="ITEM_ENCHANTMENT_MASTERY" />
+ <spell family="AURA_OF_HERMETIC_LINK" />
+ <spell family="LIFE_MAGIC_MASTERY" />
+ <spell family="MANA_RENEWAL" />
+ <spell family="REJUVENATION" />
+</profile>

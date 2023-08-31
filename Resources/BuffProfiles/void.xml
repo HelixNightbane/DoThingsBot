@@ -1,0 +1,6 @@
+<profile name="void" aliases="">
+  <spell family="SNEAK_ATTACK_MASTERY" />
+  <spell family="AURA_OF_SPIRIT_DRINKER" />
+  <spell family="VOID_MAGIC_MASTERY" />
+  <spell profile="_generic" />
+</profile>
