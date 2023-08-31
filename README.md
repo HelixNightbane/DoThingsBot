@@ -4,6 +4,8 @@ A tinker/buff/portal bot plugin.
 # Contributors
 Schubaal
 
+HelixNightbane
+
 # Installation:
  - Requires Decal / Virindi View System (comes with virindi bundle)
  - Install [DoThingsBotInstaller-2.0.0.7.exe](/uploads/023a0f5cd4e53533febf30ac5b994a0f/DoThingsBotInstaller-2.0.0.7.exe)
@@ -19,7 +21,6 @@ Schubaal
 
 # Recipes
 - Recipes are stored in <install_dir>/Resources/recipes.xml
-- [Supported recipes](https://gitlab.com/trevis/dothingsbot/wikis/recipes)
 
 # Screenshots
 ![](https://i.gyazo.com/ba7c1b6dedf462864c74d54f4541de73.png)
