@@ -13,7 +13,7 @@
         <control progid="DecalControls.StaticText" name="UIImportantTextACWindow" left="30" top="130" width="295" height="40" text="The AC window CANNOT be minimized, but window focus is not required."/>
 
         <control progid="DecalControls.StaticText" name="UIImportantTextIssues" left="14" top="170" width="345" height="20" text="If you encounter an issue please report it on the gitlab page."/>
-        <control progid="DecalControls.StaticText" name="UIGitlabLink" left="84" top="190" width="345" height="20" text="https://gitlab.com/trevis/dothingsbot"/>
+        <control progid="DecalControls.StaticText" name="UIGitlabLink" left="84" top="190" width="345" height="20" text="https://github.com/HelixNightbane/DoThingsBot"/>
       </control>
     </page>
     <page label="Equipment">

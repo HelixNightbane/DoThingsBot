@@ -59,7 +59,7 @@ namespace DoThingsBot.Views.Pages {
 
         private void UIGitlabLink_Hit(object sender, EventArgs e) {
             try {
-                System.Diagnostics.Process.Start("https://gitlab.com/trevis/dothingsbot/issues");
+                System.Diagnostics.Process.Start("https://github.com/HelixNightbane/DoThingsBot");
             }
             catch (Exception ex) { Util.LogException(ex); }
         }
