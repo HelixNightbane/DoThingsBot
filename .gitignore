@@ -333,3 +333,8 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+/DoThingsBot.cs
+/FSM/States/BotTinkering_TrySuccessState.cs
+/Globals.cs
+/ItemBundle.cs
+/Salvage.cs
