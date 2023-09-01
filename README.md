@@ -2,6 +2,8 @@
 A tinker/buff/portal bot plugin.
 
 # Contributors
+trevis
+
 Schubaal
 
 HelixNightbane
