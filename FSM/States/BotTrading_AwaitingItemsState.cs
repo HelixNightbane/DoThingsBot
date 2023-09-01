@@ -150,7 +150,7 @@ namespace DoThingsBot.FSM.States {
                     message = String.Format("That's a deadly looking {0}!", Util.GetItemName(wo));
                 }
             }
-            else if (wo.ObjectClass == ObjectClass.Salvage) {
+            else if (Salvage.IsSalvage(wo)) {
                 SalvageData d = Salvage.GetFromWorldObject(wo);
                 WorldObject weapon = itemBundle.GetWeapon();
 

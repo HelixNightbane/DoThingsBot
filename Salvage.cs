@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace DoThingsBot {
     public enum TinkerType {
@@ -111,8 +112,28 @@ namespace DoThingsBot {
                 );
         }
 
+        public static bool IsSalvageFP(WorldObject wo)
+        {
+            Match checkfp = Regex.Match(wo.Name, "^(Foolproof ).+");
+            if (wo.ObjectClass == ObjectClass.Misc && checkfp.Success) return true;
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool IsSalvage(WorldObject wo)
+        {
+            if (wo.ObjectClass == ObjectClass.Salvage || IsSalvageFP(wo)) return true;
+            
+            else 
+            { 
+                return false;
+            }
+        }
+
         public static bool IsWeaponImbueSalvage(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             switch (wo.Values(LongValueKey.Material)) {
                 case (int)Material.JET: return true;
@@ -130,7 +151,7 @@ namespace DoThingsBot {
         }
 
         public static bool IsMagicWeaponImbueSalvage(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             switch (wo.Values(LongValueKey.Material)) {
                 case (int)Material.JET: return true;
@@ -147,7 +168,7 @@ namespace DoThingsBot {
         }
 
         public static bool IsArmorImbueSalvage(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             switch (wo.Values(LongValueKey.Material)) {
                 case (int)Material.ALABASTER: return true;
@@ -159,7 +180,7 @@ namespace DoThingsBot {
         }
 
         public static bool IsJewelryImbueSalvage(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             switch (wo.Values(LongValueKey.Material)) {
                 case (int)Material.MALACHITE: return true;
@@ -179,11 +200,14 @@ namespace DoThingsBot {
         }
 
         public static bool IsImbueSalvage(WorldObject wo) {
-            return IsMagicWeaponImbueSalvage(wo) || IsWeaponImbueSalvage(wo) || IsArmorImbueSalvage(wo) || IsJewelryImbueSalvage(wo);
+            return (IsMagicWeaponImbueSalvage(wo) || IsWeaponImbueSalvage(wo) || IsArmorImbueSalvage(wo) || IsJewelryImbueSalvage(wo)) && !IsSalvageFP(wo);
         }
-
+        public static bool IsImbueSalvageFP(WorldObject wo)
+        {
+            return (IsMagicWeaponImbueSalvage(wo) || IsWeaponImbueSalvage(wo) || IsArmorImbueSalvage(wo) || IsJewelryImbueSalvage(wo)) && IsSalvageFP(wo);
+        }
         public static bool IsAbleToApplyToArmor(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             if (IsAbleToApplyToAnyTreasureGeneratedItem(wo) || IsArmorImbueSalvage(wo)) {
                 return true;
@@ -203,7 +227,7 @@ namespace DoThingsBot {
         }
 
         public static bool IsAbleToApplyToJewelry(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             if (IsAbleToApplyToAnyTreasureGeneratedItem(wo) || IsJewelryImbueSalvage(wo)) {
                 return true;
@@ -215,7 +239,7 @@ namespace DoThingsBot {
         }
 
         public static bool IsAbleToApplyToAnyMagicWeapon(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             if (IsMagicWeaponImbueSalvage(wo) || IsAbleToApplyToAnyTreasureGeneratedItem(wo)) {
                 return true;
@@ -230,7 +254,7 @@ namespace DoThingsBot {
         }
 
         public static bool IsAbleToApplyToAnyWeapon(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             if (IsWeaponImbueSalvage(wo) || IsAbleToApplyToAnyTreasureGeneratedItem(wo)) {
                 return true;
@@ -243,7 +267,7 @@ namespace DoThingsBot {
         }
 
         public static bool IsAbleToApplyToMeleeOrMissleWeapon(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             if (IsAbleToApplyToAnyWeapon(wo)) {
                 return true;
@@ -258,7 +282,7 @@ namespace DoThingsBot {
         }
 
         public static bool IsAbleToApplyToMeleeWeapon(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             if (IsAbleToApplyToAnyWeapon(wo) || IsAbleToApplyToMeleeOrMissleWeapon(wo)) {
                 return true;
@@ -274,7 +298,7 @@ namespace DoThingsBot {
         }
 
         public static bool IsAbleToApplyToMissileWeapon(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             if (IsAbleToApplyToAnyWeapon(wo) || IsAbleToApplyToMeleeOrMissleWeapon(wo)) {
                 return true;
@@ -288,7 +312,7 @@ namespace DoThingsBot {
         }
 
         public static bool IsAbleToApplyToAnyTreasureGeneratedItem(WorldObject wo) {
-            if (wo.ObjectClass != ObjectClass.Salvage) return false;
+            if (!IsSalvage(wo)) return false;
 
             switch (wo.Values(LongValueKey.Material)) {
                 case (int)Material.LINEN: return true;

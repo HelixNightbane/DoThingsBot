@@ -252,7 +252,7 @@ namespace DoThingsBot
         public static string GetItemName(WorldObject wo) {
             SalvageData d = Salvage.GetFromWorldObject(wo);
 
-            if (wo.ObjectClass == ObjectClass.Salvage) {
+            if (Salvage.IsSalvage(wo)) {
                 return String.Format("{0} {1} [w{2}]",
                     d.MaterialName,
                     wo.Name,
@@ -275,7 +275,7 @@ namespace DoThingsBot
             try {
                 if (wo == null) return "Unknown";
 
-                if (wo.ObjectClass == ObjectClass.Salvage) {
+                if (Salvage.IsSalvage(wo)) {
                     SalvageData d = Salvage.GetFromWorldObject(wo);
 
                     return String.Format("{0}[w{1}]",

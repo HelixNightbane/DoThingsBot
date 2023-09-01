@@ -582,10 +582,13 @@ namespace DoThingsBot {
         }
 
         private bool CanAddWorldObject(WorldObject wo) {
-            try {
+            try
+            {
 
-                if (Util.IsValidBuffItem(wo) && Util.CanUseBuffItem(wo)) {
-                    if (Util.IsRare(wo) && !Spells.CanUseRare()) {
+                if (Util.IsValidBuffItem(wo) && Util.CanUseBuffItem(wo))
+                {
+                    if (Util.IsRare(wo) && !Spells.CanUseRare())
+                    {
                         invalidReason = $"I need to wait {Util.GetFriendlyTimeDifference((ulong)Spells.GetTimeUntilCanUseRareAgain())} until I can use another rare.";
                         return false;
                     }
@@ -593,25 +596,32 @@ namespace DoThingsBot {
                     return true;
                 }
 
-                if (!CheckValidItem(wo)) {
+                if (!CheckValidItem(wo))
+                {
                     return false;
                 }
 
-                if (GetCraftMode() == CraftMode.InfiniteLeather) {
-                    if (wo.Values(LongValueKey.Material, 0) > 0 && wo.Values(LongValueKey.Workmanship, 0) > 0) {
+                if (GetCraftMode() == CraftMode.InfiniteLeather)
+                {
+                    if (wo.Values(LongValueKey.Material, 0) > 0 && wo.Values(LongValueKey.Workmanship, 0) > 0)
+                    {
                         return true;
                     }
-                    else {
+                    else
+                    {
                         invalidReason = "You can only add leather to lootgen items.";
                         return false;
                     }
                 }
 
-                if (GetCraftMode() == CraftMode.InfiniteDye) {
-                    if (wo.Values(BoolValueKey.Dyeable, false)) {
+                if (GetCraftMode() == CraftMode.InfiniteDye)
+                {
+                    if (wo.Values(BoolValueKey.Dyeable, false))
+                    {
                         return true;
                     }
-                    else {
+                    else
+                    {
                         invalidReason = $"That item doesn't appear to be dyeable: {Util.GetGameItemDisplayName(wo)}";
                         return false;
                     }
@@ -620,7 +630,7 @@ namespace DoThingsBot {
                 WorldObject targetItem = GetTargetItem();
 
                 // only one imbue allowed
-                if (Salvage.IsImbueSalvage(wo) && GetImbueSalvages().Count > 0) {
+                if ((Salvage.IsImbueSalvage(wo) || Salvage.IsImbueSalvageFP(wo)) && GetImbueSalvages().Count > 0) {
                     invalidReason = String.Format("You can only add one imbue salvage to an item, you already added {0}", Util.GetItemName(GetImbueSalvages()[0]));
                     return false;
                 }
@@ -632,7 +642,7 @@ namespace DoThingsBot {
                         invalidReason = String.Format("You can only add one target item to be tinkered, you already added your {0}!", Util.GetItemName(wo));
                         return false;
                     }
-                    else if (wo.ObjectClass == ObjectClass.Salvage) {
+                    else if (Salvage.IsSalvage(wo)) {
                         // can we add this salvage to our target item?
                         if (!CheckSalvageAgainstTarget(wo, targetItem)) {
                             if (invalidReason == null || invalidReason == "") {
@@ -650,13 +660,13 @@ namespace DoThingsBot {
                 // no item target set
                 else {
 
-                    if (wo.ObjectClass == ObjectClass.Salvage && GetSalvages().Count >= 10) {
+                    if (Salvage.IsSalvage(wo) && GetSalvages().Count >= 10) {
                         invalidReason = String.Format("You can only tinker an item 10 times.  That's too much salvage.");
                         return false;
                     }
 
                     // looks like a new target item
-                    if (IsWorldObjectTinkerable(wo) && wo.ObjectClass != ObjectClass.Salvage) {
+                    if (IsWorldObjectTinkerable(wo) && !Salvage.IsSalvage(wo)) {
 
                         if (wo.Values(LongValueKey.NumberTimesTinkered) >= 10) {
                             invalidReason = String.Format("That item has already been tinkered 10 times, that's the max!");
@@ -732,7 +742,7 @@ namespace DoThingsBot {
                 }
                 */
 
-                if (Salvage.IsImbueSalvage(salvage) && targetItem.Values(LongValueKey.Imbued) > 0) {
+                if ((Salvage.IsImbueSalvage(salvage) || Salvage.IsImbueSalvageFP(salvage)) && targetItem.Values(LongValueKey.Imbued) > 0) {
                     invalidReason = String.Format("I can't add {0} to your {1}, it's already imbued!", Util.GetItemName(salvage), Util.GetItemName(targetItem));
                     return false;
                 }
@@ -824,7 +834,7 @@ namespace DoThingsBot {
             try {
                 List<WorldObject> salvages = GetWeaponTinkeringSalvages();
 
-                // imbue first, then lowest wk
+                // imbue first, then lowest wk, then FP
                 salvages.Sort(
                     delegate (WorldObject p1, WorldObject p2) {
                         if (Salvage.IsImbueSalvage(p1) && Salvage.IsImbueSalvage(p2)) {
@@ -835,6 +845,17 @@ namespace DoThingsBot {
                         }
                         else if (Salvage.IsImbueSalvage(p2)) {
                             return 1;
+                        }
+                        else if (Salvage.IsImbueSalvageFP(p1) && Salvage.IsImbueSalvageFP(p2))
+                        {
+                            return 11;
+                        }
+                        else if (Salvage.IsImbueSalvageFP(p1)) {
+                            return 12;
+                        }
+                        else if (Salvage.IsImbueSalvageFP(p2))
+                        {
+                            return 13;
                         }
                         else {
                             return p1.Values(DoubleValueKey.SalvageWorkmanship).CompareTo(p2.Values(DoubleValueKey.SalvageWorkmanship));
@@ -851,7 +872,7 @@ namespace DoThingsBot {
 
                     if (itemNames.Length > 0) itemNames += ", ";
 
-                    if (item.ObjectClass == ObjectClass.Salvage) {
+                    if (Salvage.IsSalvage(item)) {
                         itemNames += Util.GetItemShortName(item);
                     }
                     else {
@@ -919,7 +940,7 @@ namespace DoThingsBot {
 
                     if (itemNames.Length > 0) itemNames += ", ";
 
-                    if (item.ObjectClass == ObjectClass.Salvage) {
+                    if (Salvage.IsSalvage(item)) {
                         itemNames += Salvage.GetName(item);
                     }
                     else {
@@ -1032,7 +1053,7 @@ namespace DoThingsBot {
                 foreach (int id in playerData.itemIds) {
                     WorldObject item = CoreManager.Current.WorldFilter[id];
 
-                    if (item != null && Salvage.IsImbueSalvage(item)) {
+                    if (item != null && (Salvage.IsImbueSalvage(item) || Salvage.IsImbueSalvageFP(item))) {
                         imbueSalvages.Add(item);
                     }
                 }
@@ -1049,7 +1070,7 @@ namespace DoThingsBot {
                 foreach (int id in playerData.itemIds) {
                     WorldObject item = CoreManager.Current.WorldFilter[id];
 
-                    if (item != null && item.ObjectClass == ObjectClass.Salvage) {
+                    if (item != null && Salvage.IsSalvage(item)) {
                         weaponTinkeringSalvages.Add(item);
                     }
                 }
@@ -1083,7 +1104,7 @@ namespace DoThingsBot {
                 foreach (int id in playerData.itemIds) {
                     WorldObject item = CoreManager.Current.WorldFilter[id];
 
-                    if (item != null && item.ObjectClass == ObjectClass.Salvage) {
+                    if (item != null && Salvage.IsSalvage(item)) {
                         salvages.Add(item);
                     }
                 }
@@ -1110,7 +1131,7 @@ namespace DoThingsBot {
                 if (IsWandOrWeapon(wo)) {
                     return CraftMode.WeaponTinkering;
                 }
-                else if (wo.ObjectClass == ObjectClass.Salvage) {
+                else if (Salvage.IsSalvage(wo)) {
                     SalvageData salvageData = Salvage.GetFromWorldObject(wo);
 
                     switch (salvageData.tinkerType) {

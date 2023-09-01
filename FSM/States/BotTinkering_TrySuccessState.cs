@@ -132,11 +132,11 @@ namespace DoThingsBot.FSM.States {
 
                         var maxSuccess = Globals.Core.CharacterFilter.Augmentations.Contains((int)Augmentations.CharmedSmith) ? 38 : 38;
 
-                        if (percent >= 100) {
+                        if (toolWo.ObjectClass == ObjectClass.Salvage && percent >= 100) {
                             didFinish = true;
                             _machine.ChangeState(new BotTinkering_ConfirmedState(itemBundle));
                         }
-                        else if (percent >= maxSuccess && itemBundle.GetImbueSalvages().Count == 1 && itemBundle.GetSalvages().Count == itemBundle.GetImbueSalvages().Count) {
+                        else if (toolWo.ObjectClass == ObjectClass.Salvage && percent >= maxSuccess && itemBundle.GetImbueSalvages().Count == 1 && itemBundle.GetSalvages().Count == itemBundle.GetImbueSalvages().Count) {
                             didFinish = true;
                             _machine.ChangeState(new BotTinkering_ConfirmedState(itemBundle));
                         }
