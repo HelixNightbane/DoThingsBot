@@ -10,6 +10,7 @@ namespace DoThingsBot.Views.Pages {
         HudCheckBox UIBotBuffBotEnabled { get; set; }
         HudCheckBox UIBotCraftBotEnabled { get; set; }
         HudCheckBox UIBotTinkerBotEnabled { get; set; }
+        HudCheckBox UIBotBrillBotEnabled { get; set; }
         HudStaticText UIGitlabLink { get; set; }
 
         public MainPage(MainView mainView) {
@@ -49,6 +50,11 @@ namespace DoThingsBot.Views.Pages {
                 UIBotTinkerBotEnabled.Checked = Config.Tinkering.Enabled.Value;
                 Config.Tinkering.Enabled.Changed += obj => { UIBotTinkerBotEnabled.Checked = obj.Value; };
                 UIBotTinkerBotEnabled.Change += (s, e) => { try { Config.Tinkering.Enabled.Value = ((HudCheckBox)s).Checked; } catch (Exception ex) { Util.LogException(ex); } };
+
+                UIBotBrillBotEnabled = (HudCheckBox)mainView.view["UIBotBrillBotEnabled"];
+                UIBotBrillBotEnabled.Checked = Config.BrillBot.Enabled.Value;
+                Config.BrillBot.Enabled.Changed += obj => { UIBotBrillBotEnabled.Checked = obj.Value; };
+                UIBotBrillBotEnabled.Change += (s, e) => { try { Config.BrillBot.Enabled.Value = ((HudCheckBox)s).Checked; } catch (Exception ex) { Util.LogException(ex); } };
 
                 UIBotEnabled.Checked = Config.Bot.Enabled.Value;
                 Config.Bot.Enabled.Changed += obj => { UIBotEnabled.Checked = obj.Value; };

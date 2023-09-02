@@ -140,6 +140,17 @@ namespace DoThingsBot.FSM.States {
                             didFinish = true;
                             _machine.ChangeState(new BotTinkering_ConfirmedState(itemBundle));
                         }
+                        else if (Salvage.IsSalvageFP(toolWo) && itemBundle.tinkerCount == 9)
+                        {
+                            didFinish = true;
+                            _machine.ChangeState(new BotTinkering_ConfirmedState(itemBundle));
+                        }
+                        else if (Salvage.IsSalvageFP(toolWo) && itemBundle.tinkerCount < 9)
+                        {
+                            didFinish = true;
+                            ChatManager.Tell(itemBundle.GetOwner(), "You have given me foolproof salvage. Typically this is only applied as the last tink.");
+                            _machine.ChangeState(new BotTinkering_AwaitCommandState(itemBundle));
+                        }
                         else {
                             didFinish = true;
                             _machine.ChangeState(new BotTinkering_AwaitCommandState(itemBundle));

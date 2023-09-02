@@ -40,6 +40,11 @@ namespace DoThingsBot.FSM.States {
                         machine.ChangeState(new BotEquipItemsState(itemBundle));
                     }
                 }
+                else if (itemBundle.GetCraftMode() == CraftMode.Brill)
+                {
+                    itemBundle.SetEquipMode(EquipMode.Brill);
+                    machine.ChangeState(new BotEquipItemsState(itemBundle));
+                }
                 else if (itemBundle.GetCraftMode() == CraftMode.WeaponTinkering && Spells.DoesAnySpellNeedRefresh(Config.Bot.GetWantedTinkerEnchantments())) {
                     if (!itemBundle.WasPaused) ChatManager.Tell(itemBundle.GetOwner(), "One moment please, I need to buff.");
 

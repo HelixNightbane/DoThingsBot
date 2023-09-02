@@ -411,6 +411,28 @@ namespace DoThingsBot {
                     }
                     break;
 
+                case "brilliance":
+                    if (!Config.BrillBot.Enabled.Value)
+                    {
+                        ChatManager.Tell(e.PlayerName, "My Brilliance casting functionality is currently disabled, sorry!");
+                        return;
+                    }
+                   
+                    if (_machine.IsOrWillBeInState("BotIdleState") || skipQueue)
+                    {
+                        var itemBundle = new ItemBundle(e.PlayerName);
+                        itemBundle.SetCraftMode(CraftMode.Brill);
+                        currentItemBundle = itemBundle;
+                        Globals.Stats.AddPlayerCommandIssued(e.PlayerName, e.Command);
+
+                        _machine.ChangeState(new BotStartState(itemBundle));
+                    }
+                    else
+                    {
+                        AddToQueue(e.PlayerName, "brilliance");
+                    }
+                    break;
+
                 case "lostitems":
                     if (_machine.IsOrWillBeInState("BotIdleState") || skipQueue) {
                         ItemBundle itemBundle = new ItemBundle(e.PlayerName);
@@ -839,8 +861,12 @@ namespace DoThingsBot {
                     ChatManager.Tell(playerName, "profiles - I will tell you what buff profiles I support.");
                     break;
 
+                case "brilliance":
+                    ChatManager.Tell(playerName, "brilliance - I will attempt to cast Brilliance on you.");
+                    break;
+
                 default:
-                    ChatManager.Tell(playerName, $"I'm a DoThingsBot. Tell me 'tinker', 'craft', or 'profiles'. Other commands: buff, lostitems, whereto, message, about, stats, comps, recipes, recipe, tool, reset.  You can also try 'help [command]' to get more information about a specific command.");
+                    ChatManager.Tell(playerName, $"I'm a DoThingsBot. Tell me 'tinker', 'craft', or 'profiles'. Other commands: buff, brilliance, lostitems, whereto, message, about, stats, comps, recipes, recipe, tool, reset.  You can also try 'help [command]' to get more information about a specific command.");
                     DisplayInfinites(playerName);
                     break;
 
@@ -864,7 +890,7 @@ namespace DoThingsBot {
         }
 
         void PrintAboutMessage(string playerName, string arguments) {
-            ChatManager.Tell(playerName, String.Format("I'm a Bot running DoThingsBot v{0}. - Download the plugin yourself at https://gitlab.com/trevis/dothingsbot .", Util.GetVersion()));
+            ChatManager.Tell(playerName, String.Format("I'm a Bot running DoThingsBot v{0}. - Download the plugin yourself at https://github.com/HelixNightbane/DoThingsBot .", Util.GetVersion()));
         }
 
         void RemoveFromQueue(string playerName, bool silent=false) {
@@ -983,15 +1009,16 @@ namespace DoThingsBot {
 
                                 if (parts.Length == 1) {
                                     command = parts[0];
+                                    ProcessCommand(new ChatCommandEventArgs(queue[0].PlayerName, command, queue[0].Command), true);
                                 }
                                 else {
                                     command = parts[0];
                                     var p2 = (new List<string>(parts));
                                     p2.RemoveAt(0);
                                     arguments = string.Join(" ", p2.ToArray());
+                                    ProcessCommand(new ChatCommandEventArgs(queue[0].PlayerName, command, queue[0].Command, arguments), true);
                                 }
 
-                                ProcessCommand(new ChatCommandEventArgs(queue[0].PlayerName, command, queue[0].Command, arguments), true);
                                 queue.RemoveAt(0);
                                 SaveQueue();
                             }

@@ -48,6 +48,8 @@ namespace DoThingsBot.FSM.States {
                         return Config.Equipment.TinkerEquipmentIds.Value;
                     case EquipMode.Craft:
                         return Config.Equipment.CraftEquipmentIds.Value;
+                    case EquipMode.Brill:
+                        return Config.Equipment.BrillEquipmentIds.Value;
                     default:
                         return Config.Equipment.IdleEquipmentIds.Value;
                 }
@@ -135,6 +137,9 @@ namespace DoThingsBot.FSM.States {
                     return;
                 case EquipMode.Craft:
                     _machine.ChangeState(new BotCraftingState(GetItemBundle()));
+                    return;
+                case EquipMode.Brill:
+                    _machine.ChangeState(new BotBrillState(GetItemBundle()));
                     return;
                 default:
                     _machine.ChangeState(new BotIdleState());

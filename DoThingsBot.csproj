@@ -105,6 +105,7 @@
     <Compile Include="FSM\Machine.cs" />
     <Compile Include="FSM\States\BotBuffingState.cs" />
     <Compile Include="FSM\States\BotBuffing_EnsureBuffedState.cs" />
+    <Compile Include="FSM\States\BotBrillState.cs" />
     <Compile Include="FSM\States\BotBuffState.cs" />
     <Compile Include="FSM\States\BotCheckSkillsState.cs" />
     <Compile Include="FSM\States\BotCraftingState.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Views\Pages\CraftBot.cs" />
     <Compile Include="Views\Pages\EquipmentBuffing.cs" />
     <Compile Include="Views\Pages\EquipmentCrafting.cs" />
+    <Compile Include="Views\Pages\EquipmentIBrill.cs" />
     <Compile Include="Views\Pages\EquipmentIdle.cs" />
     <Compile Include="Views\Pages\EquipmentTinkering.cs" />
     <Compile Include="Views\Pages\Infinites.cs" />

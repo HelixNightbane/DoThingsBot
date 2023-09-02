@@ -19,6 +19,7 @@ namespace DoThingsBot.Views {
         public EquipmentBuffingPage equipmentBuffingPage;
         public EquipmentCraftingPage equipmentCraftingPage;
         public EquipmentTinkeringPage equipmentTinkeringPage;
+        public EquipmentBrillPage equipmentBrillPage;
         public AnnouncementsPage announcementsPage;
         public PortalsPage portalsPage;
         public ConfigPage configPage;
@@ -45,6 +46,7 @@ namespace DoThingsBot.Views {
                 equipmentBuffingPage = new EquipmentBuffingPage(this);
                 equipmentCraftingPage = new EquipmentCraftingPage(this);
                 equipmentTinkeringPage = new EquipmentTinkeringPage(this);
+                equipmentBrillPage = new EquipmentBrillPage(this);
                 announcementsPage = new AnnouncementsPage(this);
                 portalsPage = new PortalsPage(this);
                 configPage = new ConfigPage(this);
@@ -82,6 +84,7 @@ namespace DoThingsBot.Views {
                     if (equipmentBuffingPage != null) equipmentBuffingPage.Dispose();
                     if (equipmentCraftingPage != null) equipmentCraftingPage.Dispose();
                     if (equipmentTinkeringPage != null) equipmentTinkeringPage.Dispose();
+                    if (equipmentBrillPage != null) equipmentBrillPage.Dispose();
                     if (announcementsPage != null) announcementsPage.Dispose();
                     if (configPage != null) configPage.Dispose();
                     if (buffBotPage != null) buffBotPage.Dispose();

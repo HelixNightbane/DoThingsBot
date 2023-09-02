@@ -1,5 +1,6 @@
 ﻿using Decal.Adapter;
 using DoThingsBot.Chat;
+using DoThingsBot.Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace DoThingsBot.FSM.States {
 
         private ItemBundle itemBundle;
         private Machine _machine;
+
+        private bool ignoreYes = (Globals.Core.CharacterFilter.CharacterOptions & 0x80000000) == 0;
 
         public BotInfinites_ApplyDye(ItemBundle items) {
             itemBundle = items;
@@ -88,6 +91,10 @@ namespace DoThingsBot.FSM.States {
                             finishedItems.Add(item);
                             CoreManager.Current.Actions.ApplyItem(toolId, item);
                             isApplying = true;
+                            if (!ignoreYes)
+                            {
+                                PostMessageTools.ClickYes();
+                            }
                             return;
                         }
                     }

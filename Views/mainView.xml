@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<view icon="5000" title="DoThingsBot" width="350" height="250">
+<view icon="5000" title="DoThingsBot" width="350" height="280">
   <control progid="DecalControls.Notebook" name="mainTabView">
     <page label="Main">
       <control progid="DecalControls.FixedLayout" clipped="">
@@ -8,12 +8,13 @@
         <control progid="DecalControls.Checkbox" name="UIBotCraftBotEnabled" left="16" top="48" width="140" height="20" text="Enable Craft Bot"/>
         <control progid="DecalControls.Checkbox" name="UIBotPortalsEnabled" left="16" top="68" width="140" height="20" text="Enable Portal Bot"/>
         <control progid="DecalControls.Checkbox" name="UIBotTinkerBotEnabled" left="16" top="88" width="140" height="20" text="Enable Tinker Bot"/>
+		<control progid="DecalControls.Checkbox" name="UIBotBrillBotEnabled" left="16" top="108" width="140" height="20" text="Enable Brilliance Bot"/>
         
-        <control progid="DecalControls.StaticText" name="UIImportantHeading" left="95" top="110" width="345" height="20" text="!!! IMPORTANT PLEASE READ !!!" fontstyle="bold"/>
-        <control progid="DecalControls.StaticText" name="UIImportantTextACWindow" left="30" top="130" width="295" height="40" text="The AC window CANNOT be minimized, but window focus is not required."/>
+        <control progid="DecalControls.StaticText" name="UIImportantHeading" left="95" top="130" width="345" height="20" text="!!! IMPORTANT PLEASE READ !!!" fontstyle="bold"/>
+        <control progid="DecalControls.StaticText" name="UIImportantTextACWindow" left="30" top="150" width="295" height="40" text="The AC window CANNOT be minimized, but window focus is not required."/>
 
-        <control progid="DecalControls.StaticText" name="UIImportantTextIssues" left="14" top="170" width="345" height="20" text="If you encounter an issue please report it on the github page."/>
-        <control progid="DecalControls.StaticText" name="UIGitlabLink" left="75" top="190" width="345" height="20" text="https://github.com/HelixNightbane/DoThingsBot"/>
+        <control progid="DecalControls.StaticText" name="UIImportantTextIssues" left="14" top="190" width="345" height="20" text="If you encounter an issue please report it on the github page."/>
+        <control progid="DecalControls.StaticText" name="UIGitlabLink" left="65" top="210" width="345" height="20" text="https://github.com/HelixNightbane/DoThingsBot"/>
       </control>
     </page>
     <page label="Equipment">
@@ -70,6 +71,19 @@
             <control progid="DecalControls.PushButton" name="UIEquipmentTinkeringAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
           </control>
         </page>
+		  <page label="Brilliance">
+			  <control progid="DecalControls.FixedLayout" clipped="">
+				  <control progid="DecalControls.List" name="UIEquipmentBrillList" top="5" width="350" height="165">
+					  <column progid="DecalControls.IconColumn" name="UIEquipmentBrillIconCol" fixedwidth="15"/>
+					  <column progid="DecalControls.TextColumn" name="UIEquipmentBrillNameCol" fixedwidth="340"/>
+					  <column progid="DecalControls.TextColumn" name="UIEquipmentBrillIdCol" fixedwidth="10"/>
+				  </control>
+
+				  <control progid="DecalControls.StaticText" name="UIEquipmentBrillRemoveLabel" left="5" top="175" width="170" height="40" text="Click a list item to remove."/>
+				  <control progid="DecalControls.PushButton" name="UIEquipmentBrillAddSelected" left="180" top="175" width="80" height="17" text="Add Selected" fontstyle="bold"/>
+				  <control progid="DecalControls.PushButton" name="UIEquipmentBrillAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
+			  </control>
+		  </page>  
       </control>
     </page>
     <page label="Bot">

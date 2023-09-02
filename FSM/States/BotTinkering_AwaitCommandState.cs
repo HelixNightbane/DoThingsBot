@@ -25,7 +25,8 @@ namespace DoThingsBot.FSM.States {
 
             ChatManager.RaiseChatCommandEvent += new EventHandler<ChatCommandEventArgs>(ChatManager_ChatCommand);
 
-            ChatManager.Tell(itemBundle.GetOwner(), String.Format("I {0}'", itemBundle.successChanceFullString) + ". Respond with 'go' or 'cancel'.");
+            ChatManager.Tell(itemBundle.GetOwner(), String.Format(itemBundle.successChanceFullString) + ". Respond with 'go' or 'cancel'.");
+            ChatManager.Tell(itemBundle.GetOwner(), "You may also cast additional buffs on me and 'retry'.");
         }
 
         public void Exit(Machine machine) {
@@ -41,7 +42,9 @@ namespace DoThingsBot.FSM.States {
                     case "go":
                         _machine.ChangeState(new BotTinkering_ConfirmedState(itemBundle));
                         break;
-
+                    case "retry":
+                        _machine.ChangeState(new BotTinkering_TrySuccessState(itemBundle));
+                        break;
                     case "cancel":
                         _machine.ChangeState(new BotTinkering_CancelledState(itemBundle));
                         break;

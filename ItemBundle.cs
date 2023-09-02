@@ -23,7 +23,8 @@ namespace DoThingsBot {
         Crafting = 10,
         InfiniteRations = 11,
         InfiniteLeather = 12,
-        InfiniteDye = 13
+        InfiniteDye = 13,
+        Brill = 14
     }
 
     public enum EquipMode {
@@ -32,7 +33,8 @@ namespace DoThingsBot {
         Buff = 2,
         Tinker = 3,
         SummonPortal = 4,
-        Craft = 5
+        Craft = 5,
+        Brill = 6
     }
 
     public enum CraftTargetType {

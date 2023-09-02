@@ -316,6 +316,7 @@ namespace DoThingsBot {
             public static  Setting<List<int>> BuffEquipmentIds;
             public static Setting<List<int>> TinkerEquipmentIds;
             public static Setting<List<int>> CraftEquipmentIds;
+            public static Setting<List<int>> BrillEquipmentIds;
 
             static Equipment() {
                 try {
@@ -328,6 +329,7 @@ namespace DoThingsBot {
                 BuffEquipmentIds = new Setting<List<int>>("Config/Equipment/Buffing/Item", "These item ids will be equipped when you are buffing. (everything else will be unequipped)", new List<int>());
                 TinkerEquipmentIds = new Setting<List<int>>("Config/Equipment/Tinkering/Item", "These item ids will be equipped when you are tinkering. (everything else will be unequipped)", new List<int>());
                 CraftEquipmentIds = new Setting<List<int>>("Config/Equipment/Crafting/Item", "These item ids will be equipped when you are crafting. (everything else will be unequipped)", new List<int>());
+                BrillEquipmentIds = new Setting<List<int>>("Config/Equipment/Brill/Item", "These item ids will be equipped when you are casting Brilliance. (everything else will be unequipped)", new List<int>());
             }
         }
 
@@ -494,7 +496,20 @@ namespace DoThingsBot {
             }
         }
 
-        public static class Tinkering {
+        public static class BrillBot
+        {
+            public static Setting<bool> Enabled;
+
+            static BrillBot()
+            {
+            }
+
+            public static void Init()
+            {
+                Enabled = new Setting<bool>("Config/BrillBot/Enabled", "Enable Brilliance functionality", false);
+            }
+        }
+            public static class Tinkering {
             public static Setting<bool> Enabled;
             public static Setting<int> KeepEquipmentOnDelay;
             public static Setting<bool> SkipMaxSuccessConfirmation;
@@ -521,6 +536,7 @@ namespace DoThingsBot {
                 Equipment.Init();
                 BuffBot.Init();
                 CraftBot.Init();
+                BrillBot.Init();
             }
             catch (Exception e) { Util.LogException(e); }
         }
