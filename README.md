@@ -33,4 +33,3 @@ HelixNightbane
  - Calculate success chance on the bot instead of using ingame popup window
  - Tradebot
  - Equipment mana managment
- - Brilliance
