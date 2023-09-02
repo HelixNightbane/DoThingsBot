@@ -4,6 +4,7 @@ using DoThingsBot.Chat;
 using DoThingsBot.Buffs;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 
 namespace DoThingsBot.FSM.States
 {
@@ -23,7 +24,9 @@ namespace DoThingsBot.FSM.States
         private ItemBundle itemBundle;
         private bool readyToCast = true;
         private int profileCount = 0;
-        private bool fstest = Config.Equipment.BrillEquipmentIds.Value.Contains(-1854979780);
+        private int fsId;
+        private bool fstest = false;
+        private string curItemName;
 
         public BotBrillState(ItemBundle items)
         {
@@ -93,11 +96,20 @@ namespace DoThingsBot.FSM.States
 
         public void Think(Machine machine)
         {
-            if (doneCasting == false)
+            foreach (var item in Config.Equipment.BrillEquipmentIds.Value)
             {
-                // enter magic combat state before casting buffs
-                
-                if (!CoreManager.Current.Actions.IsValidObject(targetId))
+                curItemName = Util.GetObjectName(item);
+                if (curItemName == "Focusing Stone")
+                {
+                    fstest = true;
+                    fsId = item;
+
+                } 
+            }
+
+            // enter magic combat state before casting buffs
+
+            if (!CoreManager.Current.Actions.IsValidObject(targetId))
                 {
                     ChatManager.Tell(itemBundle.GetOwner(), "You moved too far away, cancelling your Brilliance request.");
                     doneCasting = true;
@@ -112,7 +124,6 @@ namespace DoThingsBot.FSM.States
                     doneCasting = true;
                     return;
                 }
-            }
 
             if(!fstest && doneCasting == false) //Focusing Stone
             {
@@ -120,7 +131,7 @@ namespace DoThingsBot.FSM.States
                 doneCasting = true;
             }
 
-            if (doneCasting == false)
+            if (fstest && doneCasting == false)
             {
 
                 if (!Util.EnsureCombatState(CombatState.Magic))
@@ -130,7 +141,7 @@ namespace DoThingsBot.FSM.States
                 }
             }
 
-            if (doneCasting == false)
+            if (fstest && doneCasting == false)
             {
                 // cast Brilliance
                 if (DateTime.UtcNow - lastCasted > TimeSpan.FromMilliseconds(3000))
@@ -138,7 +149,7 @@ namespace DoThingsBot.FSM.States
                     
                     ChatManager.Tell(itemBundle.GetOwner(), "Preparing to cast Brilliance on you.");
                     CoreManager.Current.Actions.SelectItem(targetId);
-                    CoreManager.Current.Actions.UseItem(-1854979780, 1, targetId);
+                    CoreManager.Current.Actions.UseItem(fsId, 1, targetId);
                     lastCasted = DateTime.UtcNow;
                     doneCasting = true;
 
