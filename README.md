@@ -10,7 +10,7 @@ HelixNightbane
 
 # Installation:
  - Requires Decal / Virindi View System (comes with virindi bundle)
- - Install .msi package and run (default save location C:\Games\Decal Plugins\DoThingsBot)
+ - Download and run .exe file (default unzip location C:\Games\Decal Plugins\DoThingsBot)
  - Add DoThingsBot.dll to Decal
     
 # How to use:
