@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<view icon="5000" title="DoThingsBot" width="350" height="280">
+<view icon="5000" title="DoThingsBot" width="600" height="300">
   <control progid="DecalControls.Notebook" name="mainTabView">
     <page label="Main">
       <control progid="DecalControls.FixedLayout" clipped="">
@@ -7,8 +7,9 @@
         <control progid="DecalControls.Checkbox" name="UIBotBuffBotEnabled" left="16" top="28" width="140" height="20" text="Enable Buff Bot"/>
         <control progid="DecalControls.Checkbox" name="UIBotCraftBotEnabled" left="16" top="48" width="140" height="20" text="Enable Craft Bot"/>
         <control progid="DecalControls.Checkbox" name="UIBotPortalsEnabled" left="16" top="68" width="140" height="20" text="Enable Portal Bot"/>
-        <control progid="DecalControls.Checkbox" name="UIBotTinkerBotEnabled" left="16" top="88" width="140" height="20" text="Enable Tinker Bot"/>
-		<control progid="DecalControls.Checkbox" name="UIBotBrillBotEnabled" left="16" top="108" width="140" height="20" text="Enable Brilliance Bot"/>
+        <control progid="DecalControls.Checkbox" name="UIBotTinkerBotEnabled" left="175" top="28" width="140" height="20" text="Enable Tinker Bot"/>
+		<control progid="DecalControls.Checkbox" name="UIBotBrillBotEnabled" left="175" top="48" width="140" height="20" text="Enable Brilliance Bot"/>
+   	  <control progid="DecalControls.Checkbox" name="UIBotStockEnabled" left="175" top="68" width="140" height="20" text="Enable Stock Bot"/>
         
         <control progid="DecalControls.StaticText" name="UIImportantHeading" left="95" top="130" width="345" height="20" text="!!! IMPORTANT PLEASE READ !!!" fontstyle="bold"/>
         <control progid="DecalControls.StaticText" name="UIImportantTextACWindow" left="30" top="150" width="295" height="40" text="The AC window CANNOT be minimized, but window focus is not required."/>
@@ -139,7 +140,7 @@
             <control progid="DecalControls.StaticText" name="UIPortalHeadingHelpLabel" left="32" top="65" width="315" height="20" text="(Heading 0 = North, 90 = East, 180 = South, 270 = West)"/>
 
             <control progid="DecalControls.StaticText" name="UIPortalGemLowCountLabel" left="1" top="85" width="200" height="20" text="Portal Gem Low Comp Count (0 disables):"/>
-            <control progid="DecalControls.Edit" name="UIPortalGemLowCount" left="210" top="85" width="30" height="20" text=""/>
+            <control progid="DecalControls.Edit" name="UIPortalGemLowCount" left="300" top="85" width="30" height="20" text=""/>
             
             <control progid="DecalControls.StaticText" name="UIPortalGemCommandsCommandLabel" left="4" top="105" width="75" height="20" text="Command"/>
             <control progid="DecalControls.StaticText" name="UIPortalGemCommandsPortalGemLabel" left="122" top="105" width="100" height="20" text="Portal Gem"/>
@@ -179,6 +180,31 @@
             <control progid="DecalControls.PushButton" name="UIInfinitesAddSelected" left="240" top="175" width="100" height="17" text="Add Selected Item" fontstyle="bold"/>
           </control>
         </page>
+		<page label="Stock">
+			  <control progid="DecalControls.FixedLayout" clipped="">
+				  <control progid="DecalControls.StaticText" name="UIStockLowCountLabel" left="1" top="0" width="200" height="20" text="Restock Level (0 disables):"/>
+				  <control progid="DecalControls.Edit" name="UIStockLowCount" left="300" top="0" width="30" height="20" text=""/>
+
+				  <control progid="DecalControls.Checkbox" name="UIStockAllegianceOnly" left="8" top="30" width="304" height="20" text="Only supply to Allegiance members."/>
+
+				  <control progid="DecalControls.StaticText" name="UIStockCommandsCommandLabel" left="4" top="55" width="75" height="20" text="Command"/>
+				  <control progid="DecalControls.StaticText" name="UIStockCommandsLabel" left="122" top="55" width="100" height="20" text="Item"/>
+				  <control progid="DecalControls.StaticText" name="UIStockCommandsStackSizeLabel" left="450" top="55" width="80" height="20" text="Stack Size"/>
+
+				  <control progid="DecalControls.List" name="UIStockCommands" top="80" width="550" height="90">
+					  <column progid="DecalControls.TextColumn" name="UIStockCommandsCommandCol" fixedwidth="90"/>
+					  <column progid="DecalControls.IconColumn" name="UIStockCommandsIconCol" fixedwith="15"/>
+					  <column progid="DecalControls.TextColumn" name="UIStockCommandsStockCol" fixedwidth="355"/>
+					  <column progid="DecalControls.TextColumn" name="UIStockCommandsStackSizeCol" fixedwidth="25"/>
+					  <column progid="DecalControls.IconColumn" name="UIStockCommandsDeleteIconCol" fixedwith="15"/>
+				  </control>
+				  <control progid="DecalControls.StaticText" name="UIStockAddCommandLabel" left="4" top="182" width="65" height="20" text="Command:"/>
+				  <control progid="DecalControls.Edit" name="UIStockAddCommandText" left="65" top="180" width="80" height="18" text=""/>
+				  <control progid="DecalControls.StaticText" name="UIStockAddStackSizeLabel" left="149" top="182" width="60" height="20" text="Stack:"/>
+				  <control progid="DecalControls.Edit" name="UIStockAddStackSizeText" left="195" top="180" width="30" height="18" text="1"/>
+				  <control progid="DecalControls.PushButton" name="UIStockAddSelected" left="236" top="180" width="110" height="18" text="Add Selected Item" fontstyle="bold" />
+			  </control>
+		  </page>
       </control>
     </page>
     <page label="Nav">

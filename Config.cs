@@ -446,7 +446,83 @@ namespace DoThingsBot {
                 return portalGemCommands;
             }
         }
+        public static class Stock
+        {
+            public static Setting<bool> Enabled;
 
+            public static Setting<List<string>> StockItems;
+            public static Setting<int> StockLowCount;
+
+            public static Setting<bool> UIStockAllegianceOnly;
+
+            static Stock()
+            {
+            }
+
+            public static void Init()
+            {
+                Enabled = new Setting<bool>("Config/Stock/Enabled", "Enable Stock bot functionality", false);
+
+                UIStockAllegianceOnly = new Setting<bool>("Config/Stock/UIStockAllegianceOnly", "Enable stat spam in local chat", true);
+
+                StockItems = new Setting<List<string>>("Config/Stock/Items/StockItems", "Stock commands", new List<string>());
+                StockLowCount = new Setting<int>("Config/Stock/StockLowCount", "Stock low count, 0 disables. Will spam when low.", 5);
+
+            }
+
+            internal static List<string> GetUniqueStockItemNames()
+            {
+                var names = new List<string>();
+
+                foreach (var item in StockItems.Value)
+                {
+                    var name = item.Split('|')[1];
+                    if (!names.Contains(name))
+                    {
+                        names.Add(name);
+                    }
+                }
+
+                return names;
+            }
+
+            public static string[] GetValidRestockCommands()
+            {
+                var commands = new List<string>();
+                var restockCommands = RestockCommands();
+
+                foreach (var command in restockCommands)
+                {
+                    commands.Add(command.Key);
+                }
+
+                return commands.ToArray();
+            }
+
+            public static Dictionary<string, StockItems> RestockCommands()
+            {
+                var restockCommands = new Dictionary<string, StockItems>();
+                foreach (var item in StockItems.Value)
+                {
+                    var parts = item.Split('|');
+                    if (parts.Length != 4) continue;
+
+                    if (!restockCommands.ContainsKey(parts[0]))
+                    {
+                        int size = 0;
+                        int icon = 0;
+
+                        if (Int32.TryParse(parts[2], out size) && Int32.TryParse(parts[3], out icon))
+                        {
+                            restockCommands.Add(parts[0].ToLower(), new StockItems(parts[1], size, icon));
+                        }
+                    }
+                }
+
+                return restockCommands;
+            }
+
+        }
         public static class BuffBot {
             public static Setting<bool> Enabled;
             public static Setting<bool> EnableSingleBuffs;
@@ -537,6 +613,7 @@ namespace DoThingsBot {
                 BuffBot.Init();
                 CraftBot.Init();
                 BrillBot.Init();
+                Stock.Init();
             }
             catch (Exception e) { Util.LogException(e); }
         }

@@ -24,7 +24,8 @@ namespace DoThingsBot {
         InfiniteRations = 11,
         InfiniteLeather = 12,
         InfiniteDye = 13,
-        Brill = 14
+        Brill = 14,
+        Stock = 15
     }
 
     public enum EquipMode {
