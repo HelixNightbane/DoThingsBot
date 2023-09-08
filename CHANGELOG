@@ -1,4 +1,6 @@
 CHANGELOG
+2.0.0.9
+*Added support for supply bot functionality
 2.0.0.8
 *Fix Buff profile for treestats to include Jump and Mana Conversion
 *Fix infinite support with use success dialogue
