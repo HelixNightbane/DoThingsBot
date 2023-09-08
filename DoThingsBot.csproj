@@ -116,8 +116,10 @@
     <Compile Include="FSM\States\BotInfinites_ApplyDye.cs" />
     <Compile Include="FSM\States\BotInfinites_ChooseDyeState.cs" />
     <Compile Include="FSM\States\BotInfinites_LeatherState.cs" />
+    <Compile Include="FSM\States\BotStockState.cs" />
     <Compile Include="FSM\States\BotInfinites_RationsState.cs" />
     <Compile Include="FSM\States\BotStickyState.cs" />
+    <Compile Include="FSM\States\BotStock_AwaitCommandState.cs" />
     <Compile Include="FSM\States\BotTrading_ReturnItemsState.cs" />
     <Compile Include="FSM\States\BotIdleState.cs" />
     <Compile Include="FSM\States\BotStartState.cs" />
@@ -137,6 +139,7 @@
     <Compile Include="Lib\ComponentManager.cs" />
     <Compile Include="Lib\DangerousMonsterDetector.cs" />
     <Compile Include="Lib\LostItems.cs" />
+    <Compile Include="Lib\StockItems.cs" />
     <Compile Include="Lib\PortalGem.cs" />
     <Compile Include="Lib\PostMessageTools.cs" />
     <Compile Include="Lib\Recipes\IngredientList.cs" />
@@ -174,6 +177,7 @@
     <Compile Include="Views\Pages\Main.cs" />
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Views\Pages\Nav.cs" />
+    <Compile Include="Views\Pages\Stock.cs" />
     <Compile Include="Views\Pages\Portals.cs" />
     <Compile Include="Views\Pages\TinkerBot.cs" />
     <Compile Include="Views\ProfileManagerView.cs" />

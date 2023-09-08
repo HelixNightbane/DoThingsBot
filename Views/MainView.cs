@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-
+using DoThingsBot.FSM.States;
 using DoThingsBot.Views.Pages;
 
 using VirindiViewService.Controls;
@@ -27,6 +27,7 @@ namespace DoThingsBot.Views {
         public CraftBotPage craftBotPage;
         public TinkerBotPage tinkerBotPage;
         public InfinitesPage infinitesPage;
+        public StockPage stockPage;
         public NavPage navPage;
 
         public MainView() {
@@ -54,6 +55,7 @@ namespace DoThingsBot.Views {
                 craftBotPage = new CraftBotPage(this);
                 tinkerBotPage = new TinkerBotPage(this);
                 infinitesPage = new InfinitesPage(this);
+                stockPage = new StockPage(this);
                 navPage = new NavPage(this);
             }
             catch (Exception ex) { Util.LogException(ex); }
@@ -90,6 +92,7 @@ namespace DoThingsBot.Views {
                     if (buffBotPage != null) buffBotPage.Dispose();
                     if (craftBotPage != null) craftBotPage.Dispose();
                     if (tinkerBotPage != null) tinkerBotPage.Dispose();
+                    if (stockPage != null) stockPage.Dispose();
                     if (mainPage != null) mainPage.Dispose();
 
                     //Remove the view

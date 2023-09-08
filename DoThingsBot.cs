@@ -433,6 +433,28 @@ namespace DoThingsBot {
                     }
                     break;
 
+                case "stock":
+                    if (!Config.Stock.Enabled.Value)
+                    {
+                        ChatManager.Tell(e.PlayerName, "My Stock Bot functionality is currently disabled, sorry!");
+                        return;
+                    }
+
+                    if (_machine.IsOrWillBeInState("BotIdleState") || skipQueue)
+                    {
+                        var itemBundle = new ItemBundle(e.PlayerName);
+                        itemBundle.SetCraftMode(CraftMode.Stock);
+                        currentItemBundle = itemBundle;
+                        Globals.Stats.AddPlayerCommandIssued(e.PlayerName, e.Command);
+
+                        _machine.ChangeState(new BotStartState(itemBundle));
+                    }
+                    else
+                    {
+                        AddToQueue(e.PlayerName, "stock");
+                    }
+                    break;
+
                 case "lostitems":
                     if (_machine.IsOrWillBeInState("BotIdleState") || skipQueue) {
                         ItemBundle itemBundle = new ItemBundle(e.PlayerName);
@@ -864,9 +886,11 @@ namespace DoThingsBot {
                 case "brilliance":
                     ChatManager.Tell(playerName, "brilliance - I will attempt to cast Brilliance on you.");
                     break;
-
+                case "stock":
+                    ChatManager.Tell(playerName, "stock - I will attempt to supply stocked items for use.");
+                    break;
                 default:
-                    ChatManager.Tell(playerName, $"I'm a DoThingsBot. Tell me 'tinker', 'craft', or 'profiles'. Other commands: buff, brilliance, lostitems, whereto, message, about, stats, comps, recipes, recipe, tool, reset.  You can also try 'help [command]' to get more information about a specific command.");
+                    ChatManager.Tell(playerName, $"I'm a DoThingsBot. Tell me 'tinker', 'craft', or 'profiles'. Other commands: buff, brilliance, stock, lostitems, whereto, message, about, stats, comps, recipes, recipe, tool, reset.  You can also try 'help [command]' to get more information about a specific command.");
                     DisplayInfinites(playerName);
                     break;
 

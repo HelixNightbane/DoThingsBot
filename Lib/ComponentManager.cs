@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoThingsBot.Chat;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,6 +62,20 @@ namespace DoThingsBot.Lib {
                     return true;
                 }
             }
+            var stockItems = Config.Stock.RestockCommands();
+            foreach (var stockItem in stockItems)
+            {
+                var min = Config.Stock.StockLowCount.Value;
+
+                var stackSize = stockItem.Value.StackSize;
+
+                var count = Util.GetItemCount(stockItem.Value.Name);
+
+                if (min >= 0 && count/stackSize <= min)
+                {
+                    return true;
+                }
+            }
 
             return false;
         }
@@ -93,6 +108,27 @@ namespace DoThingsBot.Lib {
                 }
                 else if (Util.GetItemCount(gem) <= min) {
                     lowComponents.Add(gem + "s");
+                }
+            }
+
+            var stockItems = Config.Stock.RestockCommands();
+            foreach (var stockItem in stockItems)
+            {
+                var min = Config.Stock.StockLowCount.Value;
+
+                var stackSize = stockItem.Value.StackSize;
+
+                if (min <= 0) continue;
+
+                var count = Util.GetItemCount_withObjectName(stockItem.Value.Name);
+
+                if (count == 0)
+                {
+                    emptyComponents.Add(stockItem.Value.Name);
+                }
+                else if (Util.GetItemCount(stockItem.Value.Name)/stackSize <= min)
+                {
+                    lowComponents.Add(stockItem.Value.Name);
                 }
             }
 

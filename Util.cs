@@ -743,7 +743,20 @@ namespace DoThingsBot
 
             return count;
         }
-        
+        internal static int GetItemCount_withObjectName(string itemName)
+        {
+            int count = 0;
+            foreach (var item in CoreManager.Current.WorldFilter.GetInventory())
+            {
+                if (Util.GetObjectName(item.Id) == itemName)
+                {
+                    count += item.Values(LongValueKey.StackCount, 1);
+                }
+            }
+
+            return count;
+        }
+
         public static string GetFriendlyTimeDifference(TimeSpan difference, bool skipSeconds=false) {
             string output = "";
 
