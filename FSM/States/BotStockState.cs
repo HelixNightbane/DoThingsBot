@@ -1,13 +1,16 @@
 ﻿using Decal.Adapter;
 using Decal.Adapter.Wrappers;
+using Decal.Interop.Filters;
 using DoThingsBot.Chat;
 using DoThingsBot.Lib;
 using DoThingsBot.Lib.Recipes;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Windows.Forms;
 
 namespace DoThingsBot.FSM.States {
@@ -21,6 +24,8 @@ namespace DoThingsBot.FSM.States {
         private ItemBundle itemBundle;
         private Machine _machine;
 
+        private bool giveAllegOnly = Config.Stock.UIStockAllegianceOnly.Value;
+        
         public BotStockState(ItemBundle items) {
             itemBundle = items;
         }
@@ -28,8 +33,23 @@ namespace DoThingsBot.FSM.States {
         public void Enter(Machine machine) {
             _machine = machine;
 
-            WorldObject player = Util.FindPlayerWorldObjectByName(itemBundle.GetOwner());
+            Decal.Adapter.Wrappers.WorldObject me = Util.FindPlayerWorldObjectByName(CoreManager.Current.CharacterFilter.Name);
+            Decal.Adapter.Wrappers.WorldObject player = Util.FindPlayerWorldObjectByName(itemBundle.GetOwner());
+            
+            if (Config.Stock.UIStockAllegianceOnly.Value)
+            {
+                var myMonarch = me.Values(Decal.Adapter.Wrappers.LongValueKey.Monarch);
+                var playerMonarch = player.Values(Decal.Adapter.Wrappers.LongValueKey.Monarch);
 
+                if (myMonarch != playerMonarch)
+                {
+                    ChatManager.Tell(itemBundle.GetOwner(), "You are not in my allegiance, stock not available. Please try a different command.");
+
+                    _machine.ChangeState(new BotFinishState(itemBundle));
+                    return;
+                }
+            }
+            
             if (player == null || Util.GetDistanceFromPlayer(player) > 2) {
                 ChatManager.Tell(itemBundle.GetOwner(), "Please stand closer to me and try again.");
 
