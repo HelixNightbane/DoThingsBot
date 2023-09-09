@@ -20,17 +20,22 @@ namespace DoThingsBot.Views.Pages {
 
                 UIBotPortalsEnabled.Checked = Config.Portals.Enabled.Value;
                 Config.Portals.Enabled.Changed += obj => { UIBotPortalsEnabled.Checked = obj.Value; };
-                UIBotPortalsEnabled.Change += (s, e) => {
-                    try {
+                UIBotPortalsEnabled.Change += (s, e) => 
+                {
+                    try 
+                    {
                         Config.Portals.Enabled.Value = ((HudCheckBox)s).Checked;
                     }
-                    catch (Exception ex) { Util.LogException(ex); }
+                    catch (Exception ex) 
+                    { 
+                        Util.LogException(ex); 
+                    }
                 };
 
                 UIBotCraftBotEnabled = mainView.view != null ? (HudCheckBox)mainView.view["UIBotCraftBotEnabled"] : new HudCheckBox();
 
                 UIBotCraftBotEnabled.Checked = Config.CraftBot.Enabled.Value;
-                Config.Portals.Enabled.Changed += obj => { UIBotCraftBotEnabled.Checked = obj.Value; };
+                Config.CraftBot.Enabled.Changed += obj => { UIBotCraftBotEnabled.Checked = obj.Value; };
                 UIBotCraftBotEnabled.Change += (s, e) => {
                     try {
                         Config.CraftBot.Enabled.Value = ((HudCheckBox)s).Checked;
