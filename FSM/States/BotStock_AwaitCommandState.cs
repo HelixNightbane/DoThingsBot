@@ -15,6 +15,7 @@ namespace DoThingsBot.FSM.States {
         private int _thinkCounter = 0;
         private int targetId = 0;
         private bool restocked = false;
+        private bool gaveItem = false;
         Machine _machine;
 
         private ItemBundle itemBundle;
@@ -47,6 +48,7 @@ namespace DoThingsBot.FSM.States {
             else
             {
                 ChatManager.Tell(itemBundle.GetOwner(), "Please select from the commands above to build your supply package.");
+                ChatManager.Tell(itemBundle.GetOwner(), "You may issue multiple commands during your restock transaction!");
             }
                         
         }
@@ -73,15 +75,21 @@ namespace DoThingsBot.FSM.States {
 
                         foreach(var item in CoreManager.Current.WorldFilter.GetInventory())
                         {
-                            if(Util.GetObjectName(item.Id) == itemName && Convert.ToInt32(item.Values((LongValueKey)Decal.Interop.Filters.LongValueKey.keyStackCount)) >= stacksize)
+
+                            var countItemStack = Convert.ToInt32(item.Values((LongValueKey)Decal.Interop.Filters.LongValueKey.keyStackCount));
+
+                            if (countItemStack == 0) { countItemStack = 1; }
+
+                            if (Util.GetObjectName(item.Id) == itemName && countItemStack >= stacksize)
                             {
                                 Util.WriteToChat(itemName + " found in inventory. Attempting to give " + stacksize + ".");
 
-                                if(stacksize == Convert.ToInt32(item.Values((LongValueKey)Decal.Interop.Filters.LongValueKey.keyStackCount)))
+                                if(stacksize == countItemStack)
                                 {
                                     CoreManager.Current.Actions.GiveItem(item.Id, targetId);
                                     startTime = DateTime.UtcNow;
                                     restocked = true;
+                                    gaveItem = true;
                                     return;
                                 }
                                 else
@@ -91,13 +99,18 @@ namespace DoThingsBot.FSM.States {
                                     CoreManager.Current.Actions.GiveItem(item.Id, targetId);
                                     startTime = DateTime.UtcNow;
                                     restocked = true;
+                                    gaveItem = true;
                                     return;
                                 }
                             }
-                            else
-                            {
-                                ChatManager.Tell(itemBundle.GetOwner(), "I am currently out of that item. Please try a different selection.");
-                            }
+                        }
+                        if (!gaveItem)
+                        {
+                            ChatManager.Tell(itemBundle.GetOwner(), "I am currently out of that item. Please try a different selection.");
+                        }
+                        else
+                        {
+                            gaveItem = false;
                         }
                     }
                 }

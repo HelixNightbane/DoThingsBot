@@ -15,6 +15,8 @@ using DoThingsBot.Lib;
 using DoThingsBot.Lib.Recipes;
 using System.Xml;
 using System.Linq;
+using System.Reflection.Emit;
+using static DoThingsBot.Config;
 
 namespace DoThingsBot {
     public class DoThingsBot {
@@ -783,6 +785,11 @@ namespace DoThingsBot {
         }
 
         internal void RespondToWhereTo(string playerName, string arguments="") {
+            if (!Config.Portals.Enabled.Value)
+            {
+                return;
+            }
+
             Globals.Stats.AddPlayerCommandIssued(playerName, "whereto");
 
             if (string.IsNullOrEmpty(arguments)) {
@@ -822,6 +829,7 @@ namespace DoThingsBot {
         }
 
         void PrintHelpMessage(string playerName, string arguments) {
+
             switch (arguments) {
                 case "tinker":
                     ChatManager.Tell(playerName, "tinker - Tinkers a loot generated item by adding salvage. Make sure you are standing nearby.");
@@ -890,7 +898,34 @@ namespace DoThingsBot {
                     ChatManager.Tell(playerName, "stock - I will attempt to supply stocked items for use.");
                     break;
                 default:
-                    ChatManager.Tell(playerName, $"I'm a DoThingsBot. Tell me 'tinker', 'craft', or 'profiles'. Other commands: buff, brilliance, stock, lostitems, whereto, message, about, stats, comps, recipes, recipe, tool, reset.  You can also try 'help [command]' to get more information about a specific command.");
+                    ChatManager.Tell(playerName, $"Hello! I am a DoThingsBot. You can issue me the following command profiles to get started:");
+
+                    if (Config.BuffBot.Enabled.Value)
+                    {
+                        ChatManager.Tell(playerName, "'buff' for TreeStats profiles, or 'profiles' to see what buff profiles I support; ");
+                    }
+                    if (Config.CraftBot.Enabled.Value)
+                    {
+                        ChatManager.Tell(playerName, "'craft'; ");
+                    }
+                    if (Config.Portals.Enabled.Value)
+                    {
+                        ChatManager.Tell(playerName, "'whereto' to see where I can summon; ");
+                    }
+                    if (Config.Tinkering.Enabled.Value)
+                    {
+                        ChatManager.Tell(playerName, "'tinker'; ");
+                    }
+                    if (Config.BrillBot.Enabled.Value)
+                    {
+                        ChatManager.Tell(playerName, "'brilliance' to get extra Focus; ");
+                    }
+                    if (Config.Stock.Enabled.Value)
+                    {
+                        ChatManager.Tell(playerName, "'stock' to see what items I can restock you with; ");
+                    }
+                    ChatManager.Tell(playerName, $"additional commands: lostitems, message, about, stats, comps, recipes, recipe, tool, reset.");
+                    ChatManager.Tell(playerName, "You can also try 'help [command]' to get more information about a specific command.");
                     DisplayInfinites(playerName);
                     break;
 
@@ -909,8 +944,10 @@ namespace DoThingsBot {
                 var colors = string.Join(", ", Config.Bot.InfiniteDyeColors().ToArray());
                 message += $"I have infinite dye ({colors})! Tell me 'dye' and I'll dye your stuff.";
             }
-
-            ChatManager.Tell(playerName, message);
+            if (message != "")
+            {
+                ChatManager.Tell(playerName, message);
+            }
         }
 
         void PrintAboutMessage(string playerName, string arguments) {
