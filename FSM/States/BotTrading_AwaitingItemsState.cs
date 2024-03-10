@@ -28,14 +28,18 @@ namespace DoThingsBot.FSM.States {
 
             if (itemBundle.GetCraftMode() == CraftMode.WeaponTinkering)
             {
-                bool charmed = Globals.Core.CharacterFilter.Augmentations.Contains((int)Augmentations.CharmedSmith);
-                int maxsuccess = 33; 
 
-                if (charmed) { maxsuccess = 38; };
+                var maxSuccess = 33;
+                    
+                   if (Globals.Core.CharacterFilter.GetCharProperty((int)Augmentations.CharmedSmith) == 1) { maxSuccess = 38;};
+
+                Util.WriteToChat(maxSuccess.ToString());
+
+                    //Globals.Core.CharacterFilter.Augmentations.Contains((int)Augmentations.CharmedSmith) ? 38 : 33;
 
                 ChatManager.Tell(itemBundle.GetOwner(), "I can now apply Foolproof Salvage to your items! I will apply this last.");
-                ChatManager.Tell(itemBundle.GetOwner(), "My chance of success is now correct for imbuing. My maximum chance of success is " + maxsuccess + " percent.");
-                ChatManager.Tell(itemBundle.GetOwner(), "If my chance of success for an imbue is " + maxsuccess + " percent, I will automatically attempt to tinker the item.");
+                ChatManager.Tell(itemBundle.GetOwner(), "My chance of success is now correct for imbuing. My maximum chance of success is " + maxSuccess + " percent.");
+                ChatManager.Tell(itemBundle.GetOwner(), "If my chance of success for an imbue is " + maxSuccess + " percent, I will automatically attempt to tinker the item.");
             }
 
            CoreManager.Current.WorldFilter.AddTradeItem += new EventHandler<AddTradeItemEventArgs>(WorldFilter_AddTradeItem);

@@ -1,5 +1,6 @@
 ﻿using Decal.Adapter;
 using Decal.Adapter.Wrappers;
+using Decal.Interop.Filters;
 using DoThingsBot.Chat;
 using DoThingsBot.Lib;
 using System;
@@ -74,7 +75,7 @@ namespace DoThingsBot.FSM.States {
                     bool itemsNeedIds = false;
 
                     foreach (int id in itemBundle.GetItems()) {
-                        WorldObject wo = CoreManager.Current.WorldFilter[id];
+                        Decal.Adapter.Wrappers.WorldObject wo = CoreManager.Current.WorldFilter[id];
 
                         if (!wo.HasIdData && !requestedIds.Contains(wo.Id)) {
                             itemsNeedIds = true;
@@ -130,7 +131,10 @@ namespace DoThingsBot.FSM.States {
                             itemBundle.successChanceFullString = $"I have a {percent}% chance of using {toolName} on {targetName} (tink {itemBundle.tinkerCount + 1})";
                         }
 
-                        var maxSuccess = Globals.Core.CharacterFilter.Augmentations.Contains((int)Augmentations.CharmedSmith) ? 38 : 38;
+                        var maxSuccess = 33;
+
+                        if (Globals.Core.CharacterFilter.GetCharProperty((int)Augmentations.CharmedSmith) == 1) { maxSuccess = 38; };
+
 
                         if (toolWo.ObjectClass == ObjectClass.Salvage && percent >= 100) {
                             didFinish = true;
