@@ -41,7 +41,7 @@ namespace DoThingsBot.FSM.States {
 
             if (player == null || Util.GetDistanceFromPlayer(player) > 2)
             {
-                ChatManager.Tell(itemBundle.GetOwner(), "You moved too far away, cancelling your buffs.");
+                ChatManager.Tell(itemBundle.GetOwner(), "You moved too far away, cancelling your restock.");
                 machine.ChangeState(new BotFinishState(machine.CurrentState.GetItemBundle()));
                 return;
             }
@@ -49,6 +49,7 @@ namespace DoThingsBot.FSM.States {
             {
                 ChatManager.Tell(itemBundle.GetOwner(), "Please select from the commands above to build your supply package.");
                 ChatManager.Tell(itemBundle.GetOwner(), "You may issue multiple commands during your restock transaction!");
+                ChatManager.Tell(itemBundle.GetOwner(), "Please issue only one command per tell - you may use the same command multiple times.");
             }
                         
         }
@@ -120,7 +121,7 @@ namespace DoThingsBot.FSM.States {
         DateTime startTime = DateTime.UtcNow;
 
         public void Think(Machine machine) {
-            if (DateTime.UtcNow - startTime > TimeSpan.FromSeconds(10)) {
+            if (DateTime.UtcNow - startTime > TimeSpan.FromSeconds(30)) {
                 if(restocked)
                 {
                     ChatManager.Tell(itemBundle.GetOwner(), "You have completed your restock!");
