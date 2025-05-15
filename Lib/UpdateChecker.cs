@@ -19,7 +19,9 @@ namespace DoThingsBot.Lib {
         private static string json = "";
 
         public static void CheckForUpdate() {
-            new Newtonsoft.Json.Serialization.Action(FetchGitlabData).BeginInvoke(new AsyncCallback(OnGitlabFetchComplete), null);
+            new Action(FetchGitlabData).BeginInvoke(OnGitlabFetchComplete, null);
+
+            //new Newtonsoft.Json.Serialization.Action(FetchGitlabData).BeginInvoke(new AsyncCallback(OnGitlabFetchComplete), null);
         }
 
         public static void FetchGitlabData() {

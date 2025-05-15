@@ -540,6 +540,11 @@ namespace DoThingsBot {
                     break;
 
                 case "buff":
+                    if (!Config.BuffBot.Enabled.Value)
+                    {
+                        ChatManager.Tell(e.PlayerName, "My buff bot functionality is currently disabled, sorry!");
+                        return;
+                    }
                     if (!Config.BuffBot.EnableTreeStatsBuffs.Value) {
                         ChatManager.Tell(e.PlayerName, "My TreeStats buffing profile functionality is currently disabled, sorry!");
                         return;
