@@ -47,27 +47,32 @@ namespace DoThingsBot.FSM.States {
             try {
                 var characterName = Globals.Core.CharacterFilter.Name;
                 var maxSuccess = Globals.Core.CharacterFilter.Augmentations.Contains((int)Augmentations.CharmedSmith) ? 38 : 38;
+                string salvageType;
+                string salvageWk;
 
-                Regex CraftSuccess = new Regex("^" + characterName + @" successfully applies the (?<salvage>[\w\s\-]+) Salvage([d]\s[\w]+|(\s?\(100\)))?\s\(workmanship (?<workmanship>\d+\.\d+)\) to the (?<item>[\w\s\-]+)\.$");
-                Regex CraftFailure = new Regex("^" + characterName + @" fails to apply the (?<salvage>[\w\s\-]+) Salvage([d]\s[\w]+|(\s?\(100\)))?\s\(workmanship (?<workmanship>\d+\.\d+)\) to the (?<item>[\w\s\-]+).\s?The target is destroyed\.$");
+                Regex CraftSuccess = new Regex("^" + characterName + @" successfully applies the ((?<salvage>[\w\s\-]+) Salvage([d]\s[\w]*|(\s?\(100\)))?\s\(workmanship (?<workmanship>\d+\.\d+)\)||(?<salvage>[\w\s\-]+) (Salvage|Salvaged||Foolproof)||Foolproof (?<salvage>[\w\s\-]+)) to the (?<item>[\w\s\-]+)\.$");
+                Regex CraftFailure = new Regex("^" + characterName + @" fails to apply the ((?<salvage>[\w\s\-]+) Salvage([d]\s[\w]*|(\s?\(100\)))?\s\(workmanship (?<workmanship>\d+\.\d+)\)||(?<salvage>[\w\s\-]+) (Salvage|Salvaged||Foolproof)||Foolproof (?<salvage>[\w\s\-]+)) to the (?<item>[\w\s\-]+).\s?The target is destroyed\.$");
 
                 Util.WriteToDebugLog(itemBundle.successChanceFullString);
                 Util.WriteToDebugLog(e.Text);
 
                 if (CraftSuccess.IsMatch(e.Text.Trim())) {
                     var match = CraftSuccess.Match(e.Text.Trim());
+                    
+                    salvageType = match.Groups["salvage"].Value;
+                    salvageWk = string.IsNullOrEmpty(match.Groups["workmanship"].Value) ? "0" : match.Groups["workmanship"].Value;
 
                     itemBundle.tinkerCount++;
 
                     // successful imbue
                     if (itemBundle.successChance >= maxSuccess && itemBundle.IsImbue) {
-                        Globals.Stats.AddPlayerImbuesLanded(itemBundle.GetOwner(), match.Groups["salvage"].Value, 1);
+                        Globals.Stats.AddPlayerImbuesLanded(itemBundle.GetOwner(), salvageType, 1);
                     }
                     else if (itemBundle.GetImbueSalvages().Count == 0) {
-                        Globals.Stats.RecordTinkerSuccess(itemBundle.GetOwner(), match.Groups["salvage"].Value + "(wk" + match.Groups["workmanship"].Value + ")", itemBundle.successChance, match.Groups["item"].Value);
+                        Globals.Stats.RecordTinkerSuccess(itemBundle.GetOwner(), salvageType + "(wk" + salvageWk + ")", itemBundle.successChance, match.Groups["item"].Value);
                     }
 
-                    Globals.Stats.AddPlayerSalvageBagApplied(itemBundle.GetOwner(), match.Groups["salvage"].Value, 1);
+                    Globals.Stats.AddPlayerSalvageBagApplied(itemBundle.GetOwner(), salvageType, 1);
 
                     Util.WriteToDebugLog(e.Text);
                     
@@ -92,17 +97,20 @@ namespace DoThingsBot.FSM.States {
                 if (CraftFailure.IsMatch(e.Text.Trim())) {
                     var match = CraftFailure.Match(e.Text.Trim());
 
+                    salvageType = match.Groups["salvage"].Value;
+                    salvageWk = string.IsNullOrEmpty(match.Groups["workmanship"].Value) ? "0" : match.Groups["workmanship"].Value;
+
                     Util.WriteToChat(string.Format("Failed. is: {0}, max: {1}, c: {2}", itemBundle.successChance, maxSuccess, itemBundle.GetImbueSalvages().Count));
 
                     // failed imbue
                     if (itemBundle.successChance >= maxSuccess && itemBundle.IsImbue) {
-                        Globals.Stats.AddPlayerImbuesFailed(itemBundle.GetOwner(), match.Groups["salvage"].Value, 1);
+                        Globals.Stats.AddPlayerImbuesFailed(itemBundle.GetOwner(), salvageType, 1);
                     }
                     else if (itemBundle.GetImbueSalvages().Count == 0) {
-                        Globals.Stats.RecordTinkerFailure(itemBundle.GetOwner(), match.Groups["salvage"].Value + "(wk" + match.Groups["workmanship"].Value + ")", itemBundle.successChance, match.Groups["item"].Value);
+                        Globals.Stats.RecordTinkerFailure(itemBundle.GetOwner(), salvageType + "(wk" + salvageWk + ")", itemBundle.successChance, match.Groups["item"].Value);
                     }
 
-                    Globals.Stats.AddPlayerSalvageBagApplied(itemBundle.GetOwner(), match.Groups["salvage"].Value, 1);
+                    Globals.Stats.AddPlayerSalvageBagApplied(itemBundle.GetOwner(), salvageType, 1);
 
                     ChatManager.Tell(itemBundle.GetOwner(), "Ouch!  Maybe next time we'll have better luck.");
 

@@ -306,20 +306,20 @@ namespace DoThingsBot {
                     }
                     break;
 
-                case "skills":
-                    if (_machine.IsOrWillBeInState("BotIdleState") || skipQueue) {
-                        var itemBundle = new ItemBundle(e.PlayerName);
-                        currentItemBundle = itemBundle;
+                //case "skills":
+                //    if (_machine.IsOrWillBeInState("BotIdleState") || skipQueue) {
+                //        var itemBundle = new ItemBundle(e.PlayerName);
+                //        currentItemBundle = itemBundle;
 
-                        itemBundle.SetEquipMode(EquipMode.Tinker);
-                        itemBundle.SetCraftMode(CraftMode.CheckSkills);
-                        Globals.Stats.AddPlayerCommandIssued(e.PlayerName, e.Command);
-                        _machine.ChangeState(new BotStartState(itemBundle));
-                    }
-                    else {
-                        AddToQueue(e.PlayerName, "skills");
-                    }
-                    break;
+                //        itemBundle.SetEquipMode(EquipMode.Tinker);
+                //        itemBundle.SetCraftMode(CraftMode.CheckSkills);
+                //        Globals.Stats.AddPlayerCommandIssued(e.PlayerName, e.Command);
+                //        _machine.ChangeState(new BotStartState(itemBundle));
+                //    }
+                //    else {
+                //        AddToQueue(e.PlayerName, "skills");
+                //    }
+                //    break;
 
                 case "whereto":
                     if (!Config.Portals.Enabled.Value) {
@@ -420,6 +420,28 @@ namespace DoThingsBot {
                         return;
                     }
                    
+                    if (_machine.IsOrWillBeInState("BotIdleState") || skipQueue)
+                    {
+                        var itemBundle = new ItemBundle(e.PlayerName);
+                        itemBundle.SetCraftMode(CraftMode.Brill);
+                        currentItemBundle = itemBundle;
+                        Globals.Stats.AddPlayerCommandIssued(e.PlayerName, e.Command);
+
+                        _machine.ChangeState(new BotStartState(itemBundle));
+                    }
+                    else
+                    {
+                        AddToQueue(e.PlayerName, "brilliance");
+                    }
+                    break;
+                
+                case "brill":
+                    if (!Config.BrillBot.Enabled.Value)
+                    {
+                        ChatManager.Tell(e.PlayerName, "My Brilliance casting functionality is currently disabled, sorry!");
+                        return;
+                    }
+
                     if (_machine.IsOrWillBeInState("BotIdleState") || skipQueue)
                     {
                         var itemBundle = new ItemBundle(e.PlayerName);
@@ -607,7 +629,7 @@ namespace DoThingsBot {
 
                 case "dye":
                     if (!Config.Bot.HasInfiniteDyes()) {
-                        ChatManager.Tell(e.PlayerName, "Sorry, I don't have any infinite leather.");
+                        ChatManager.Tell(e.PlayerName, "Sorry, I don't have any infinite dyes.");
                         return;
                     }
                     if (_machine.IsOrWillBeInState("BotIdleState") || skipQueue) {
@@ -852,9 +874,9 @@ namespace DoThingsBot {
                     ChatManager.Tell(playerName, "remove - Remove yourself from the queue.");
                     break;
 
-                case "skills":
-                    ChatManager.Tell(playerName, "skills - I will tell you my current skill levels.");
-                    break;
+                //case "skills":
+                //    ChatManager.Tell(playerName, "skills - I will tell you my current skill levels.");
+                //    break;
 
                 case "tool":
                     ChatManager.Tell(playerName, "tool [tool name] - I will tell where to find a tool.");
@@ -923,7 +945,7 @@ namespace DoThingsBot {
                     }
                     if (Config.BrillBot.Enabled.Value)
                     {
-                        ChatManager.Tell(playerName, "'brilliance' to get extra Focus; ");
+                        ChatManager.Tell(playerName, "'brill' to get extra Focus; ");
                     }
                     if (Config.Stock.Enabled.Value)
                     {

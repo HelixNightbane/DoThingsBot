@@ -114,7 +114,7 @@ namespace DoThingsBot {
 
         public static bool IsSalvageFP(WorldObject wo)
         {
-            Match checkfp = Regex.Match(wo.Name, "^(Foolproof ).+");
+            Match checkfp = Regex.Match(wo.Name, "(^Foolproof (?<Material>.+)||(?<Material>.+) Foolproof)");
             if (wo.ObjectClass == ObjectClass.Misc && checkfp.Success) return true;
             else
             {

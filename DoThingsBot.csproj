@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DoThingsBot</RootNamespace>
     <AssemblyName>DoThingsBot</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -47,7 +47,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>bin\net48\</OutputPath>
     <DefineConstants>TRACE;VVS_REFERENCED</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -169,6 +169,10 @@
     <Compile Include="Stats\StatAnnouncements.cs" />
     <Compile Include="Stats\Stats.cs" />
     <Compile Include="Util.cs" />
+    <Compile Include="Views\Pages\EquipmentMagicTinkering.cs" />
+    <Compile Include="Views\Pages\EquipmentItemTinkering.cs" />
+    <Compile Include="Views\Pages\EquipmentWeaponTinkering.cs" />
+    <Compile Include="Views\Pages\EquipmentArmorTinkering.cs" />
     <Compile Include="Views\Pages\Announcements.cs" />
     <Compile Include="Views\Pages\BuffBot.cs" />
     <Compile Include="Views\Pages\Config.cs" />
@@ -288,7 +292,9 @@
     <Content Include="Resources\BotProfiles\tinker.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\buffitems.xml" />
+    <Content Include="Resources\buffitems.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\BuffProfiles\2h.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>..\bin\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>10</LangVersion>
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+    <RootNamespace>DoThingsBot</RootNamespace>
+    <AssemblyName>DoThingsBot.Loader</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="LoaderCore.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Decal.Adapter">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Decal 3.0\Decal.Adapter.dll</HintPath>
+    </Reference>
+    <Reference Include="Decal.Interop.Core">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Decal 3.0\.NET 4.0 PIA\Decal.Interop.Core.DLL</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+</Project>
