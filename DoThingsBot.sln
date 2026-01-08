@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoThingsBot", "DoThingsBot.csproj", "{C2880823-67E7-4B3D-A481-9ADC9847C39C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoThingsBot.Loader", "DoThingsBot.Loader\DoThingsBot.Loader.csproj", "{7C7BA23E-646D-4B2F-A469-D23A8DF5BCE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,14 @@ Global
 		{C2880823-67E7-4B3D-A481-9ADC9847C39C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C2880823-67E7-4B3D-A481-9ADC9847C39C}.Release|x86.ActiveCfg = Release|x86
 		{C2880823-67E7-4B3D-A481-9ADC9847C39C}.Release|x86.Build.0 = Release|x86
+		{7C7BA23E-646D-4B2F-A469-D23A8DF5BCE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C7BA23E-646D-4B2F-A469-D23A8DF5BCE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C7BA23E-646D-4B2F-A469-D23A8DF5BCE5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7C7BA23E-646D-4B2F-A469-D23A8DF5BCE5}.Debug|x86.Build.0 = Debug|Any CPU
+		{7C7BA23E-646D-4B2F-A469-D23A8DF5BCE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C7BA23E-646D-4B2F-A469-D23A8DF5BCE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C7BA23E-646D-4B2F-A469-D23A8DF5BCE5}.Release|x86.ActiveCfg = Release|Any CPU
+		{7C7BA23E-646D-4B2F-A469-D23A8DF5BCE5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

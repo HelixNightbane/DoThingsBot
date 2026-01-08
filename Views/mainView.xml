@@ -59,19 +59,58 @@
             <control progid="DecalControls.PushButton" name="UIEquipmentCraftingAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
           </control>
         </page>
-        <page label="Tinkering">
+        <page label="ArmorTink">
           <control progid="DecalControls.FixedLayout" clipped="">
-            <control progid="DecalControls.List" name="UIEquipmentTinkeringList" top="5" width="350" height="165">
-              <column progid="DecalControls.IconColumn" name="UIEquipmentTinkeringIconCol" fixedwidth="15"/>
-              <column progid="DecalControls.TextColumn" name="UIEquipmentTinkeringNameCol" fixedwidth="340"/>
-              <column progid="DecalControls.TextColumn" name="UIEquipmentTinkeringIdCol" fixedwidth="10"/>
+            <control progid="DecalControls.List" name="UIEquipmentArmorTinkeringList" top="5" width="350" height="165">
+              <column progid="DecalControls.IconColumn" name="UIEquipmentArmorTinkeringIconCol" fixedwidth="15"/>
+              <column progid="DecalControls.TextColumn" name="UIEquipmentArmorTinkeringNameCol" fixedwidth="340"/>
+              <column progid="DecalControls.TextColumn" name="UIEquipmentArmorTinkeringIdCol" fixedwidth="10"/>
             </control>
 
-            <control progid="DecalControls.StaticText" name="UIEquipmentTinkeringRemoveLabel" left="5" top="175" width="170" height="40" text="Click a list item to remove."/>
-            <control progid="DecalControls.PushButton" name="UIEquipmentTinkeringAddSelected" left="180" top="175" width="80" height="17" text="Add Selected" fontstyle="bold"/>
-            <control progid="DecalControls.PushButton" name="UIEquipmentTinkeringAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
+            <control progid="DecalControls.StaticText" name="UIEquipmentArmorTinkeringRemoveLabel" left="5" top="175" width="170" height="40" text="Click a list item to remove."/>
+            <control progid="DecalControls.PushButton" name="UIEquipmentArmorTinkeringAddSelected" left="180" top="175" width="80" height="17" text="Add Selected" fontstyle="bold"/>
+            <control progid="DecalControls.PushButton" name="UIEquipmentArmorTinkeringAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
           </control>
         </page>
+		  <page label="WeaponTink">
+			  <control progid="DecalControls.FixedLayout" clipped="">
+				  <control progid="DecalControls.List" name="UIEquipmentWeaponTinkeringList" top="5" width="350" height="165">
+					  <column progid="DecalControls.IconColumn" name="UIEquipmentWeaponTinkeringIconCol" fixedwidth="15"/>
+					  <column progid="DecalControls.TextColumn" name="UIEquipmentWeaponTinkeringNameCol" fixedwidth="340"/>
+					  <column progid="DecalControls.TextColumn" name="UIEquipmentWeaponTinkeringIdCol" fixedwidth="10"/>
+				  </control>
+
+				  <control progid="DecalControls.StaticText" name="UIEquipmentWeaponTinkeringRemoveLabel" left="5" top="175" width="170" height="40" text="Click a list item to remove."/>
+				  <control progid="DecalControls.PushButton" name="UIEquipmentWeaponTinkeringAddSelected" left="180" top="175" width="80" height="17" text="Add Selected" fontstyle="bold"/>
+				  <control progid="DecalControls.PushButton" name="UIEquipmentWeaponTinkeringAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
+			  </control>
+		  </page>
+		  <page label="MagicTink">
+			  <control progid="DecalControls.FixedLayout" clipped="">
+				  <control progid="DecalControls.List" name="UIEquipmentMagicTinkeringList" top="5" width="350" height="165">
+					  <column progid="DecalControls.IconColumn" name="UIEquipmentMagicTinkeringIconCol" fixedwidth="15"/>
+					  <column progid="DecalControls.TextColumn" name="UIEquipmentMagicTinkeringNameCol" fixedwidth="340"/>
+					  <column progid="DecalControls.TextColumn" name="UIEquipmentMagicTinkeringIdCol" fixedwidth="10"/>
+				  </control>
+
+				  <control progid="DecalControls.StaticText" name="UIEquipmentMagicTinkeringRemoveLabel" left="5" top="175" width="170" height="40" text="Click a list item to remove."/>
+				  <control progid="DecalControls.PushButton" name="UIEquipmentMagicTinkeringAddSelected" left="180" top="175" width="80" height="17" text="Add Selected" fontstyle="bold"/>
+				  <control progid="DecalControls.PushButton" name="UIEquipmentMagicTinkeringAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
+			  </control>
+		  </page>
+		  <page label="ItemTink">
+			  <control progid="DecalControls.FixedLayout" clipped="">
+				  <control progid="DecalControls.List" name="UIEquipmentItemTinkeringList" top="5" width="350" height="165">
+					  <column progid="DecalControls.IconColumn" name="UIEquipmentItemTinkeringIconCol" fixedwidth="15"/>
+					  <column progid="DecalControls.TextColumn" name="UIEquipmentItemTinkeringNameCol" fixedwidth="340"/>
+					  <column progid="DecalControls.TextColumn" name="UIEquipmentItemTinkeringIdCol" fixedwidth="10"/>
+				  </control>
+
+				  <control progid="DecalControls.StaticText" name="UIEquipmentItemTinkeringRemoveLabel" left="5" top="175" width="170" height="40" text="Click a list item to remove."/>
+				  <control progid="DecalControls.PushButton" name="UIEquipmentItemTinkeringAddSelected" left="180" top="175" width="80" height="17" text="Add Selected" fontstyle="bold"/>
+				  <control progid="DecalControls.PushButton" name="UIEquipmentItemTinkeringAddEquipped" left="265" top="175" width="80" height="17" text="Add Equipped" fontstyle="bold"/>
+			  </control>
+		  </page>
 		  <page label="Brilliance">
 			  <control progid="DecalControls.FixedLayout" clipped="">
 				  <control progid="DecalControls.List" name="UIEquipmentBrillList" top="5" width="350" height="165">

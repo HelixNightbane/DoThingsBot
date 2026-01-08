@@ -35,7 +35,11 @@ namespace DoThingsBot {
         Tinker = 3,
         SummonPortal = 4,
         Craft = 5,
-        Brill = 6
+        Brill = 6,
+        TinkerWeapon = 7,
+        TinkerArmor = 8, 
+        TinkerMagic = 9,
+        TinkerItem = 10
     }
 
     public enum CraftTargetType {

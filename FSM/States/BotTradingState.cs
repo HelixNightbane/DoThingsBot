@@ -95,8 +95,31 @@ namespace DoThingsBot.FSM.States {
                         machine.ChangeState(new BotInfinites_ApplyDye(itemBundle));
                         return;
                     }
-
-                    itemBundle.SetEquipMode(EquipMode.Tinker);
+                    else if (itemBundle.targetType == CraftTargetType.Armor)
+                    {
+                        itemBundle.SetEquipMode(EquipMode.TinkerArmor);
+                        machine.ChangeState(new BotEquipItemsState(itemBundle));
+                        return;
+                    }
+                    else if (itemBundle.targetType == CraftTargetType.Weapon && itemBundle.weaponType == WeaponType.Wand)
+                    {
+                        itemBundle.SetEquipMode(EquipMode.TinkerMagic);
+                        machine.ChangeState(new BotEquipItemsState(itemBundle));
+                        return;
+                    }
+                    else if (itemBundle.targetType == CraftTargetType.Weapon)
+                    {
+                        itemBundle.SetEquipMode(EquipMode.TinkerWeapon);
+                        machine.ChangeState(new BotEquipItemsState(itemBundle));
+                        return;
+                    }
+                    else if (itemBundle.targetType == CraftTargetType.Jewelry)
+                    {
+                        itemBundle.SetEquipMode(EquipMode.TinkerItem);
+                        machine.ChangeState(new BotEquipItemsState(itemBundle));
+                        return;
+                    }
+                    itemBundle.SetEquipMode(EquipMode.TinkerArmor);
                     machine.ChangeState(new BotEquipItemsState(itemBundle));
                     return;
                 }

@@ -315,6 +315,10 @@ namespace DoThingsBot {
             public static  Setting<List<int>> IdleEquipmentIds;
             public static  Setting<List<int>> BuffEquipmentIds;
             public static Setting<List<int>> TinkerEquipmentIds;
+            public static Setting<List<int>> ArmorTinkerEquipmentIds;
+            public static Setting<List<int>> WeaponTinkerEquipmentIds;
+            public static Setting<List<int>> MagicTinkerEquipmentIds;
+            public static Setting<List<int>> ItemTinkerEquipmentIds;
             public static Setting<List<int>> CraftEquipmentIds;
             public static Setting<List<int>> BrillEquipmentIds;
 
@@ -327,7 +331,11 @@ namespace DoThingsBot {
             public static void Init() {
                 IdleEquipmentIds = new Setting<List<int>>("Config/Equipment/Idle/Item", "These item ids will be equipped when you are idle. (everything else will be unequipped)", new List<int>());
                 BuffEquipmentIds = new Setting<List<int>>("Config/Equipment/Buffing/Item", "These item ids will be equipped when you are buffing. (everything else will be unequipped)", new List<int>());
-                TinkerEquipmentIds = new Setting<List<int>>("Config/Equipment/Tinkering/Item", "These item ids will be equipped when you are tinkering. (everything else will be unequipped)", new List<int>());
+                TinkerEquipmentIds = new Setting<List<int>>("Config/Equipment/Tinkering/Item", "These item ids will be ignored.", new List<int>());
+                ArmorTinkerEquipmentIds = new Setting<List<int>>("Config/Equipment/ArmorTinkering/Item", "These item ids will be equipped when you are armor tinkering. (everything else will be unequipped)", new List<int>());
+                WeaponTinkerEquipmentIds = new Setting<List<int>>("Config/Equipment/WeaponTinkering/Item", "These item ids will be equipped when you are weapon tinkering. (everything else will be unequipped)", new List<int>());
+                MagicTinkerEquipmentIds = new Setting<List<int>>("Config/Equipment/MagicTinkering/Item", "These item ids will be equipped when you are magic item tinkering. (everything else will be unequipped)", new List<int>());
+                ItemTinkerEquipmentIds = new Setting<List<int>>("Config/Equipment/ItemTinkering/Item", "These item ids will be equipped when you are item tinkering. (everything else will be unequipped)", new List<int>());
                 CraftEquipmentIds = new Setting<List<int>>("Config/Equipment/Crafting/Item", "These item ids will be equipped when you are crafting. (everything else will be unequipped)", new List<int>());
                 BrillEquipmentIds = new Setting<List<int>>("Config/Equipment/Brill/Item", "These item ids will be equipped when you are casting Brilliance. (everything else will be unequipped)", new List<int>());
             }

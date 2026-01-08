@@ -18,7 +18,10 @@ namespace DoThingsBot.Views {
         public EquipmentIdlePage equipmentIdlePage;
         public EquipmentBuffingPage equipmentBuffingPage;
         public EquipmentCraftingPage equipmentCraftingPage;
-        public EquipmentTinkeringPage equipmentTinkeringPage;
+        public EquipmentArmorTinkeringPage equipmentArmorTinkeringPage;
+        public EquipmentWeaponTinkeringPage equipmentWeaponTinkeringPage;
+        public EquipmentMagicTinkeringPage equipmentMagicTinkeringPage;
+        public EquipmentItemTinkeringPage equipmentItemTinkeringPage;
         public EquipmentBrillPage equipmentBrillPage;
         public AnnouncementsPage announcementsPage;
         public PortalsPage portalsPage;
@@ -46,7 +49,10 @@ namespace DoThingsBot.Views {
                 equipmentIdlePage = new EquipmentIdlePage(this);
                 equipmentBuffingPage = new EquipmentBuffingPage(this);
                 equipmentCraftingPage = new EquipmentCraftingPage(this);
-                equipmentTinkeringPage = new EquipmentTinkeringPage(this);
+                equipmentArmorTinkeringPage = new EquipmentArmorTinkeringPage(this);
+                equipmentWeaponTinkeringPage = new EquipmentWeaponTinkeringPage(this);
+                equipmentMagicTinkeringPage = new EquipmentMagicTinkeringPage(this);
+                equipmentItemTinkeringPage = new EquipmentItemTinkeringPage(this);
                 equipmentBrillPage = new EquipmentBrillPage(this);
                 announcementsPage = new AnnouncementsPage(this);
                 portalsPage = new PortalsPage(this);
@@ -85,7 +91,10 @@ namespace DoThingsBot.Views {
                     if (equipmentIdlePage != null) equipmentIdlePage.Dispose();
                     if (equipmentBuffingPage != null) equipmentBuffingPage.Dispose();
                     if (equipmentCraftingPage != null) equipmentCraftingPage.Dispose();
-                    if (equipmentTinkeringPage != null) equipmentTinkeringPage.Dispose();
+                    if (equipmentArmorTinkeringPage != null) equipmentArmorTinkeringPage.Dispose();
+                    if (equipmentWeaponTinkeringPage!= null) equipmentWeaponTinkeringPage.Dispose();
+                    if (equipmentMagicTinkeringPage != null) equipmentMagicTinkeringPage.Dispose();
+                    if (equipmentItemTinkeringPage != null) equipmentItemTinkeringPage.Dispose();
                     if (equipmentBrillPage != null) equipmentBrillPage.Dispose();
                     if (announcementsPage != null) announcementsPage.Dispose();
                     if (configPage != null) configPage.Dispose();

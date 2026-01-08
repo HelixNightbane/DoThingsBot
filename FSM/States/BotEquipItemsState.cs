@@ -45,7 +45,15 @@ namespace DoThingsBot.FSM.States {
                     case EquipMode.SummonPortal:
                         return Config.Equipment.BuffEquipmentIds.Value;
                     case EquipMode.Tinker:
-                        return Config.Equipment.TinkerEquipmentIds.Value;
+                        return Config.Equipment.ArmorTinkerEquipmentIds.Value;
+                    case EquipMode.TinkerArmor:
+                        return Config.Equipment.ArmorTinkerEquipmentIds.Value;
+                    case EquipMode.TinkerMagic:
+                        return Config.Equipment.MagicTinkerEquipmentIds.Value;
+                    case EquipMode.TinkerWeapon:
+                        return Config.Equipment.WeaponTinkerEquipmentIds.Value;
+                    case EquipMode.TinkerItem:
+                        return Config.Equipment.ItemTinkerEquipmentIds.Value;
                     case EquipMode.Craft:
                         return Config.Equipment.CraftEquipmentIds.Value;
                     case EquipMode.Brill:
@@ -133,6 +141,18 @@ namespace DoThingsBot.FSM.States {
                     _machine.ChangeState(new BotSummonPortalState(GetItemBundle()));
                     return;
                 case EquipMode.Tinker:
+                    _machine.ChangeState(new BotTinkeringState(GetItemBundle()));
+                    return;
+                case EquipMode.TinkerArmor:
+                    _machine.ChangeState(new BotTinkeringState(GetItemBundle()));
+                    return;
+                case EquipMode.TinkerMagic:
+                    _machine.ChangeState(new BotTinkeringState(GetItemBundle()));
+                    return;
+                case EquipMode.TinkerWeapon:
+                    _machine.ChangeState(new BotTinkeringState(GetItemBundle()));
+                    return;
+                case EquipMode.TinkerItem:
                     _machine.ChangeState(new BotTinkeringState(GetItemBundle()));
                     return;
                 case EquipMode.Craft:
