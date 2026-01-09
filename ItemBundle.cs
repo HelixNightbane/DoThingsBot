@@ -512,6 +512,7 @@ namespace DoThingsBot {
                         case ObjectClass.WandStaffOrb: canApply = Salvage.IsAbleToApplyToAnyMagicWeapon(salvage); break;
                         case ObjectClass.Armor: canApply = Salvage.IsAbleToApplyToArmor(salvage); break;
                         case ObjectClass.Jewelry: canApply = Salvage.IsAbleToApplyToJewelry(salvage); break;
+                        case ObjectClass.Clothing: canApply = Salvage.IsAbleToApplyToArmor(salvage); break;
                     }
 
                     if (!CheckSalvageAgainstTarget(salvage, targetWo)) {
@@ -760,6 +761,7 @@ namespace DoThingsBot {
                     case ObjectClass.WandStaffOrb: return Salvage.IsAbleToApplyToAnyMagicWeapon(salvage);
                     case ObjectClass.Armor: return Salvage.IsAbleToApplyToArmor(salvage);
                     case ObjectClass.Jewelry: return Salvage.IsAbleToApplyToJewelry(salvage);
+                    case ObjectClass.Clothing: return Salvage.IsAbleToApplyToArmor(salvage);
                     default: return false;
                 }
             }
@@ -826,7 +828,10 @@ namespace DoThingsBot {
                 if (GetJewelry() != null) {
                     return GetJewelry().Id;
                 }
-
+                if (GetClothing() != null)
+                {
+                    return GetClothing().Id;
+                }
                 return 0;
             }
             catch (Exception e) { Util.LogException(e); return 0; }
@@ -1051,6 +1056,10 @@ namespace DoThingsBot {
 
         public WorldObject GetJewelry() {
             return GetItemByObjectClass(ObjectClass.Jewelry);
+        }
+        public WorldObject GetClothing()
+        {
+            return GetItemByObjectClass(ObjectClass.Clothing);
         }
 
         public List<WorldObject> GetImbueSalvages() {

@@ -50,8 +50,8 @@ namespace DoThingsBot.FSM.States {
                 string salvageType;
                 string salvageWk;
 
-                Regex CraftSuccess = new Regex("^" + characterName + @" successfully applies the ((?<salvage>[\w\s\-]+) Salvage([d]\s[\w]*|(\s?\(100\)))?\s\(workmanship (?<workmanship>\d+\.\d+)\)||(?<salvage>[\w\s\-]+) (Salvage|Salvaged||Foolproof)||Foolproof (?<salvage>[\w\s\-]+)) to the (?<item>[\w\s\-]+)\.$");
-                Regex CraftFailure = new Regex("^" + characterName + @" fails to apply the ((?<salvage>[\w\s\-]+) Salvage([d]\s[\w]*|(\s?\(100\)))?\s\(workmanship (?<workmanship>\d+\.\d+)\)||(?<salvage>[\w\s\-]+) (Salvage|Salvaged||Foolproof)||Foolproof (?<salvage>[\w\s\-]+)) to the (?<item>[\w\s\-]+).\s?The target is destroyed\.$");
+                Regex CraftSuccess = new Regex("^" + characterName + @" successfully applies the ((?<salvage>[\w\s\-]+) (Foolproof|Salvage)([d]\s[\w]*|(\s?\(100\)))?\s\(workmanship (?<workmanship>\d+\.\d+)\)||(?<salvage>[\w\s\-]+) (Salvage|Salvaged||Foolproof)||Foolproof (?<salvage>[\w\s\-]+)) to the (?<item>[\w\s\-]+)\.$");
+                Regex CraftFailure = new Regex("^" + characterName + @" fails to apply the ((?<salvage>[\w\s\-]+) (Foolproof|Salvage)([d]\s[\w]*|(\s?\(100\)))?\s\(workmanship (?<workmanship>\d+\.\d+)\)||(?<salvage>[\w\s\-]+) (Salvage|Salvaged||Foolproof)||Foolproof (?<salvage>[\w\s\-]+)) to the (?<item>[\w\s\-]+).\s?The target is destroyed\.$");
 
                 Util.WriteToDebugLog(itemBundle.successChanceFullString);
                 Util.WriteToDebugLog(e.Text);
