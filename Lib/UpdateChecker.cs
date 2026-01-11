@@ -60,7 +60,7 @@ namespace DoThingsBot.Lib {
                                 Version releaseVersion = new Version(tag.tag_name.Replace("release-", ""));
 
                                 if (releaseVersion.CompareTo(version) == 1) {
-                                    Globals.Host.Actions.AddChatText("[" + Globals.PluginName + "] " + "A new version of DoThingsBot is available for download! https://gitlab.com/trevis/dothingsbot", 3);
+                                    Globals.Core.Actions.AddChatText("[" + Globals.PluginName + "] " + "A new version of DoThingsBot is available for download! https://gitlab.com/trevis/dothingsbot", 3);
                                     break;
                                 }
                             }

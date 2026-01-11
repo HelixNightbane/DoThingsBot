@@ -216,7 +216,7 @@ namespace DoThingsBot.FSM.States {
                     User32.PostMessage(CoreManager.Current.Decal.Hwnd, User32.WM_KEYDOWN, (IntPtr)VK_SHIFT, (UIntPtr)0x002A0001);
                     holdingShift = true;
                 }
-                User32.PostMessage(CoreManager.Current.Decal.Hwnd, User32.WM_KEYDOWN, (IntPtr)Globals.Host.GetKeyboardMapping("MovementForward"), (UIntPtr)0x00110001);
+                User32.PostMessage(CoreManager.Current.Decal.Hwnd, User32.WM_KEYDOWN, (IntPtr)Globals.Core.QueryKeyBoardMap("MovementForward"), (UIntPtr)0x00110001);
                 holdingForward = true;
             }
             else {
@@ -229,11 +229,11 @@ namespace DoThingsBot.FSM.States {
                 return;
 
             if (holdingForward)
-                User32.PostMessage(CoreManager.Current.Decal.Hwnd, User32.WM_KEYUP, (IntPtr)Globals.Host.GetKeyboardMapping("MovementForward"), (UIntPtr)0xC0110001);
+                User32.PostMessage(CoreManager.Current.Decal.Hwnd, User32.WM_KEYUP, (IntPtr)Globals.Core.QueryKeyBoardMap("MovementForward"), (UIntPtr)0xC0110001);
             if (holdingShift)
                 User32.PostMessage(CoreManager.Current.Decal.Hwnd, User32.WM_KEYUP, (IntPtr)VK_SHIFT, (UIntPtr)0xC02A0001);
-            User32.PostMessage(CoreManager.Current.Decal.Hwnd, User32.WM_KEYDOWN, (IntPtr)Globals.Host.GetKeyboardMapping("MovementStop"), (UIntPtr)0x00110001);
-            User32.PostMessage(CoreManager.Current.Decal.Hwnd, User32.WM_KEYUP, (IntPtr)Globals.Host.GetKeyboardMapping("MovementStop"), (UIntPtr)0xC0110001);
+            User32.PostMessage(CoreManager.Current.Decal.Hwnd, User32.WM_KEYDOWN, (IntPtr)Globals.Core.QueryKeyBoardMap("MovementStop"), (UIntPtr)0x00110001);
+            User32.PostMessage(CoreManager.Current.Decal.Hwnd, User32.WM_KEYUP, (IntPtr)Globals.Core.QueryKeyBoardMap("MovementStop"), (UIntPtr)0xC0110001);
             needsKeyReset = false;
             holdingShift = false;
             holdingForward = false;

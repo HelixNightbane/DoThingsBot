@@ -17,7 +17,7 @@ namespace DoThingsBot
         private bool isSubscribedToRenderFrame = false;
         private bool needsReload;
         private int oldCurrentUserValue = -1;
-
+        
         public static string PluginAssemblyNamespace => typeof(LoaderCore).Namespace.Replace(".Loader", "");
         public static string PluginAssemblyName => $"{PluginAssemblyNamespace}.dll";
         public static string PluginAssemblyGuid => "57937a36-b956-4322-a059-ec2297d23f0d";
@@ -35,7 +35,7 @@ namespace DoThingsBot
         protected override void Startup()
         {
             try
-            {
+            { 
                 Core.PluginInitComplete += Core_PluginInitComplete;
                 Core.PluginTermComplete += Core_PluginTermComplete;
                 Core.FilterInitComplete += Core_FilterInitComplete;
@@ -180,6 +180,9 @@ namespace DoThingsBot
                     if (string.Equals(fileName, "DoThingsBot.Loader.dll", StringComparison.OrdinalIgnoreCase))
                         continue;
 
+                    if (fileName.Equals("WebControlWrapper.dll", StringComparison.OrdinalIgnoreCase))
+                        continue; 
+
                     try
                     {
                         Assembly.Load(File.ReadAllBytes(dllPath));
@@ -192,7 +195,7 @@ namespace DoThingsBot
 
                 // Load the main plugin assembly
                 pluginAssembly = Assembly.Load(File.ReadAllBytes(System.IO.Path.Combine(AssemblyDirectory, PluginAssemblyName)));
-                pluginType = pluginAssembly.GetType($"{PluginAssemblyNamespace}.PluginCore");
+                pluginType = pluginAssembly.GetType($"{PluginAssemblyNamespace}.PluginCore", throwOnError:true);
                 pluginInstance = Activator.CreateInstance(pluginType);
 
                 var assemblyDirAttr = pluginType.GetProperty("AssemblyDirectory", BindingFlags.Public | BindingFlags.Static);
@@ -208,7 +211,6 @@ namespace DoThingsBot
                 Log(ex);
             }
         }
-
 
         private void UnloadPluginAssembly()
         {

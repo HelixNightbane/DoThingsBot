@@ -68,11 +68,24 @@ namespace DoThingsBot
             return Path.Combine(GetCharacterDataDirectory(), "logs");
         }
 
-        public static string GetResourcesDirectory() {
-            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static string GetResourcesDirectory()
+        {
+            try
+            {
+                string assemblyFolder = PluginCore.AssemblyDirectory;
 
-            return Path.Combine(assemblyFolder, "Resources");
+                if (string.IsNullOrWhiteSpace(assemblyFolder))
+                    assemblyFolder = AppDomain.CurrentDomain.BaseDirectory;
+
+                return Path.Combine(assemblyFolder, "Resources");
+            }
+            catch
+            {
+                // absolutely safe fallback
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources");
+            }
         }
+
 
         public static void CreateDataDirectories() {
             System.IO.Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\Decal Plugins\");
@@ -147,11 +160,11 @@ namespace DoThingsBot
             try {
                 if (skipPluginName) {
                     DecalProxy.Decal_DispatchOnChatCommand(message);
-                    Globals.Host.Actions.AddChatText(message, 5);
+                    Globals.Core.Actions.AddChatText(message, 5);
                 }
                 else {
                     DecalProxy.Decal_DispatchOnChatCommand("[" + Globals.PluginName + "] " + message);
-                    Globals.Host.Actions.AddChatText("[" + Globals.PluginName + "] " + message, 5);
+                    Globals.Core.Actions.AddChatText("[" + Globals.PluginName + "] " + message, 5);
                 }
                 WriteToDebugLog(message);
             }
@@ -186,7 +199,7 @@ namespace DoThingsBot
 
         internal static void StopMoving() {
             if (!CoreManager.Current.Actions.ChatState) {
-                PostMessageTools.SendMovement((char)Globals.Host.GetKeyboardMapping("MovementStop"), 10);
+                PostMessageTools.SendMovement((char)Globals.Core.QueryKeyBoardMap("MovementStop"), 10);
             }
         }
 

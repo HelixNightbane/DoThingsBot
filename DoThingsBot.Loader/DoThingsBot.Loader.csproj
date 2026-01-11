@@ -12,14 +12,59 @@
     <AssemblyName>DoThingsBot.Loader</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <COMReference Include="Decal">
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>ff7f5f6d-34e0-4b6f-b3bb-8141de2ef732</Guid>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DecalFilters">
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>da16daa9-7f16-45d9-a59f-8c45a7f2acb1</Guid>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SpellFilter">
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>8c94b9f9-e992-46e7-96d7-4564a08a21bb</Guid>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="LoaderCore.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Decal.Adapter">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Decal 3.0\Decal.Adapter.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Decal.FileService">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Decal 3.0\Decal.FileService.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Decal.Interop.Core">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Decal 3.0\.NET 4.0 PIA\Decal.Interop.Core.DLL</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Decal.Interop.Filters">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Decal 3.0\.NET 4.0 PIA\Decal.Interop.Filters.DLL</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VirindiViewService">
+      <HintPath>..\..\..\..\..\..\..\Games\VirindiPlugins\VirindiViewService\VirindiViewService.dll</HintPath>
+    </Reference>
+    <Reference Include="WebControlWrapper">
+      <HintPath>..\..\..\..\..\..\..\Games\VirindiPlugins\VirindiViewService\WebControlWrapper.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
