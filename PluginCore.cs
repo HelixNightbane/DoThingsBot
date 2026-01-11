@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using Decal.Adapter.Messages;
 using Decal.Adapter.Wrappers;
 using DoThingsBot.Lib;
+using DoThingsBot.Buffs;
 
 namespace DoThingsBot {
     //Attaches events from core
@@ -19,11 +20,34 @@ namespace DoThingsBot {
 	public class PluginCore : PluginBase {
 
         internal static string PluginName = "DoThingsBot";
+        private static string _assemblyDirectory = null;
         private DoThingsBot bot;
+        private bool started;
 
         // Views, depends on VirindiViewService.dll
         internal MainView mainView;
-
+        public static string AssemblyDirectory
+        {
+            get
+            {
+                if (_assemblyDirectory == null)
+                {
+                    try
+                    {
+                        _assemblyDirectory = System.IO.Path.GetDirectoryName(typeof(PluginCore).Assembly.Location);
+                    }
+                    catch
+                    {
+                        _assemblyDirectory = Environment.CurrentDirectory;
+                    }
+                }
+                return _assemblyDirectory;
+            }
+            set
+            {
+                _assemblyDirectory = value;
+            }
+        }
         internal static DirectoryInfo PluginPersonalFolder {
             get {
                 
@@ -44,16 +68,23 @@ namespace DoThingsBot {
         /// </summary>
         protected override void Startup()
 		{
-			try
-			{
-				// This initializes our static Globals class with references to the key objects your plugin will use, Host and Core.
-				// The OOP way would be to pass Host and Core to your objects, but this is easier.
-				Globals.Init("DoThingsBot", Host, Core);
+            
+            try
+            {;
+                Globals.Init("DoThingsBot", Core);
 
-                CoreManager.Current.PluginInitComplete += new EventHandler<EventArgs>(Current_PluginInitComplete);
-                CoreManager.Current.CommandLineText += new EventHandler<ChatParserInterceptEventArgs>(Current_CommandLineText);
+
+                CoreManager.Current.PluginInitComplete += Current_PluginInitComplete;
+                CoreManager.Current.CommandLineText += Current_CommandLineText;
+
+                CoreManager.Current.CharacterFilter.LoginComplete += CharacterFilter_LoginComplete;
+                if (CoreManager.Current.CharacterFilter.LoginStatus == 3)
+                {
+                    CharacterFilter_LoginComplete(this,EventArgs.Empty);
+                }
+                
             }
-			catch (Exception ex) { Util.LogException(ex); }
+            catch (Exception ex) { Log(ex); }
 		}
 
 		/// <summary>
@@ -65,7 +96,12 @@ namespace DoThingsBot {
                 CoreManager.Current.PluginInitComplete -= new EventHandler<EventArgs>(Current_PluginInitComplete);
                 CoreManager.Current.CommandLineText -= new EventHandler<ChatParserInterceptEventArgs>(Current_CommandLineText);
 
+                CoreManager.Current.CharacterFilter.LoginComplete -= CharacterFilter_LoginComplete;
+
                 if (bot != null) bot.Dispose();
+                if (Globals.StatsView != null) {
+                    Globals.StatsView.Dispose(); 
+                }
                 if (mainView != null) mainView.Dispose();
             }
 			catch (Exception ex) { Util.LogException(ex); }
@@ -73,15 +109,18 @@ namespace DoThingsBot {
 
         void Current_PluginInitComplete(object sender, EventArgs e) {
             try {
-
+                
             }
-            catch (Exception ex) { Util.LogException(ex); }
+            catch (Exception ex) { Log(ex); }
         }
+        
+   
 
-        [BaseEvent("LoginComplete", "CharacterFilter")]
+        //[BaseEvent("CharacterFilter")]
 		private void CharacterFilter_LoginComplete(object sender, EventArgs e)
 		{
             try {
+
                 string configFilePath = Util.GetCharacterDataDirectory() + "config.xml";
 
                 Util.CreateDataDirectories();
@@ -130,7 +169,10 @@ namespace DoThingsBot {
                 bot.IsLoggedIn = false;
 
                 if (bot != null) bot.Dispose();
-                if (Globals.StatsView != null) Globals.StatsView.Dispose();
+                if (Globals.StatsView != null)
+                {
+                    Globals.StatsView.Dispose();
+                }
                 if (mainView != null) mainView.Dispose();
 
                 Util.WriteToDebugLog("Logoff");
@@ -216,5 +258,30 @@ namespace DoThingsBot {
             }
             catch (Exception ex) { Util.LogException(ex); }
         }
+        #region logging
+        /// <summary>
+        /// Log an exception to log.txt in the same directory as the plugin.
+        /// </summary>
+        /// <param name="ex"></param>
+        internal static void Log(Exception ex)
+        {
+            Log(ex.ToString());
+        }
+
+        /// <summary>
+        /// Log a string to log.txt in the same directory as the plugin.
+        /// </summary>
+        /// <param name="message"></param>
+        internal static void Log(string message)
+        {
+            try
+            {
+                File.AppendAllText(System.IO.Path.Combine(AssemblyDirectory, "log.txt"), $"{message}\n");
+
+                CoreManager.Current.Actions.AddChatText(message, 1);
+            }
+            catch { }
+        }
+        #endregion // logging
     }
 }

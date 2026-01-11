@@ -39,7 +39,7 @@ namespace DoThingsBot.Views.Pages {
 
                 UIInfinitesAddSelected.Hit += (s, e) => {
                     try {
-                        WorldObject selectedObject = Globals.Core.WorldFilter[Globals.Host.Actions.CurrentSelection];
+                        WorldObject selectedObject = Globals.Core.WorldFilter[Globals.Core.Actions.CurrentSelection];
                         if (!ValidItems.Contains(selectedObject.Name)) {
                             Util.WriteToChat("Error: Invalid item. Supported items are: " + string.Join(", ", ValidItems.ToArray()));
                             return;

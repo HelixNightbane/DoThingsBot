@@ -29,7 +29,7 @@ namespace DoThingsBot.Views.Pages
                 UIEquipmentItemTinkeringAddSelected.Hit += (s, e) => {
                     try
                     {
-                        WorldObject selectedObject = Globals.Core.WorldFilter[Globals.Host.Actions.CurrentSelection];
+                        WorldObject selectedObject = Globals.Core.WorldFilter[Globals.Core.Actions.CurrentSelection];
                         List<int> newList = Config.Equipment.ItemTinkerEquipmentIds.Value;
                         newList.Add(selectedObject.Id);
                         Config.Equipment.ItemTinkerEquipmentIds.Value = newList;

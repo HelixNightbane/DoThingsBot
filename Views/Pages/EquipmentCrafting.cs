@@ -24,7 +24,7 @@ namespace DoThingsBot.Views.Pages {
 
                 UIEquipmentCraftingAddSelected.Hit += (s, e) => {
                     try {
-                        WorldObject selectedObject = Globals.Core.WorldFilter[Globals.Host.Actions.CurrentSelection];
+                        WorldObject selectedObject = Globals.Core.WorldFilter[Globals.Core.Actions.CurrentSelection];
                         List<int> newList = Config.Equipment.CraftEquipmentIds.Value;
                         newList.Add(selectedObject.Id);
                         Config.Equipment.CraftEquipmentIds.Value = newList;
