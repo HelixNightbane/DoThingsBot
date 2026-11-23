@@ -55,6 +55,11 @@ namespace DoThingsBot.FSM.States {
             itemBundle.SetOwner(player.Name);
 
             if (itemBundle.WasPaused) {
+                if (itemBundle.playerData.buffIds == null) {
+                    ChatManager.Tell(itemBundle.GetOwner(), "Your saved buffing session has no spell list. I have cancelled that session; please request buffs again.");
+                    machine.ChangeState(new BotFinishState(itemBundle));
+                    return;
+                }
                 buffIds = itemBundle.playerData.buffIds;
                 ChatManager.Tell(itemBundle.GetOwner(), $"I am resuming your buffing session, I still have {buffIds.Count} buff{(buffIds.Count==1?"":"s")} left to cast on you");
             }

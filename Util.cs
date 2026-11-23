@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -108,14 +107,9 @@ namespace DoThingsBot
         }
 
         public static string GetVersion() {
-            try {
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-                return fileVersionInfo.ProductVersion;
-            }
-            catch (Exception e) { Util.LogException(e); }
-
-            return null;
+            var assembly = typeof(Util).Assembly;
+            return assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
+                ?? assembly.GetName().Version.ToString();
         }
 
         public static void LogException(Exception ex)

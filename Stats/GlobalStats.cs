@@ -114,39 +114,85 @@ namespace DoThingsBot.Stats {
             return Path.Combine(Util.GetCharacterDataDirectory(), "stats.json");
         }
 
-        internal static GlobalStats Load() {
-            GlobalStats stats = null;
+        private void NormalizeCollections() {
+            salvageBagsUsed = salvageBagsUsed ?? new Dictionary<string, int>();
+            nonImbuesFailed = nonImbuesFailed ?? new Dictionary<string, int>();
+            imbuesLandedBySalvageType = imbuesLandedBySalvageType ?? new Dictionary<string, int>();
+            imbuesFailedBySalvageType = imbuesFailedBySalvageType ?? new Dictionary<string, int>();
+            commandsIssued = commandsIssued ?? new Dictionary<string, int>();
+            donations = donations ?? new Dictionary<string, int>();
+            portalsSummoned = portalsSummoned ?? new Dictionary<string, int>();
+            burnedComponents = burnedComponents ?? new Dictionary<string, int>();
+        }
 
+        private static GlobalStats TryLoadStatsFile(string path) {
             try {
-                if (File.Exists(GetGlobalsStatsFilePath())) {
-                    try {
-                        string json = File.ReadAllText(GetGlobalsStatsFilePath());
+                if (!File.Exists(path)) return null;
 
-                        stats = JsonConvert.DeserializeObject<GlobalStats>(json);
-                    }
-                    catch (Exception ex) {
-                        Util.LogException(ex);
-
-                        stats = new GlobalStats();
-                    }
+                var stats = JsonConvert.DeserializeObject<GlobalStats>(File.ReadAllText(path));
+                if (stats == null) {
+                    throw new InvalidDataException("The statistics file is empty or contains JSON null.");
                 }
-                else {
-                    stats = new GlobalStats();
+
+                stats.NormalizeCollections();
+                return stats;
+            }
+            catch (Exception ex) {
+                Util.LogException(new InvalidDataException("Unable to load statistics from " + path, ex));
+                return null;
+            }
+        }
+
+        internal static GlobalStats Load() {
+            try {
+                string path = GetGlobalsStatsFilePath();
+                // An older interrupted save may have left a complete .new file.
+                foreach (string candidate in new[] { path, path + ".new", path + ".bak" }) {
+                    var stats = TryLoadStatsFile(candidate);
+                    if (stats != null) {
+                        if (candidate != path) {
+                            Util.WriteToChat("DoThingsBot recovered statistics from " + candidate);
+                        }
+                        return stats;
+                    }
                 }
             }
             catch (Exception ex) { Util.LogException(ex); }
 
-            return stats;
+            // A bad optional statistics file must never prevent the bot from starting.
+            return new GlobalStats();
         }
 
         internal void Save() {
             try {
+                NormalizeCollections();
+                string path = GetGlobalsStatsFilePath();
+                string pendingPath = path + ".new";
                 string json = JsonConvert.SerializeObject(this, Formatting.Indented);
-                File.WriteAllText(GetGlobalsStatsFilePath() + ".new", json);
-                File.Copy(GetGlobalsStatsFilePath() + ".new", GetGlobalsStatsFilePath(), true);
-                File.Delete(GetGlobalsStatsFilePath() + ".new");
+                using (var stream = new FileStream(pendingPath, FileMode.Create, FileAccess.Write, FileShare.None)) {
+                    using (var writer = new StreamWriter(stream, new UTF8Encoding(false))) {
+                        writer.Write(json);
+                        writer.Flush();
+                        stream.Flush(true);
+                    }
+                }
 
-                Globals.Stats.lastGlobalStatsSave = DateTime.UtcNow;
+                if (File.Exists(path)) {
+                    if (TryLoadStatsFile(path) != null) {
+                        File.Replace(pendingPath, path, path + ".bak");
+                    }
+                    else {
+                        // Keep the failed file without replacing a known-good backup with it.
+                        string preservedPath = path + ".corrupt." + DateTime.UtcNow.ToString("yyyyMMddHHmmssfff") + "." + Guid.NewGuid().ToString("N");
+                        File.Copy(path, preservedPath, false);
+                        File.Replace(pendingPath, path, null);
+                    }
+                }
+                else {
+                    File.Move(pendingPath, path);
+                }
+
+                if (Globals.Stats != null) Globals.Stats.lastGlobalStatsSave = DateTime.UtcNow;
             }
             catch (Exception ex) { Util.LogException(ex); }
         }
