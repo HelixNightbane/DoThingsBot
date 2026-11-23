@@ -1,111 +1,75 @@
-; Define your application name
-!define APPNAME "DoThingsBot"
-!define SOFTWARECOMPANY "SunnujDecalPlugins"
-!define VERSION	"2.0.0.7"
-!define APPGUID "{96A085A9-7A75-4D36-9437-07DB39EF0BA0}"
+Unicode true
+!include "MUI2.nsh"
+!include "LogicLib.nsh"
+!include "FileFunc.nsh"
 
-!define ASSEMBLY "DoThingsBot.dll"
-!define CLASSNAME "DoThingsBot.PluginCore"
-
-!define BUILDPATH "..\bin\x86\Release"
-
-; Main Install settings
-; compressor goes first
-SetCompressor LZMA
-
-Name "${APPNAME} ${VERSION}"
-InstallDir "C:\Games\Decal Plugins\${APPNAME}"
-InstallDirRegKey HKLM "Software\${SOFTWARECOMPANY}\${APPNAME}" ""
-;SetFont "Verdana" 8
-;Icon "Installer\Res\Decal.ico"
-OutFile "${APPNAME}Installer-${VERSION}.exe"
-
-; Use compression
-
-; Modern interface settings
-!include "MUI.nsh"
+!ifdef TEST_ROOT
+    RequestExecutionLevel user
+    !define TEST_ARGUMENTS ' -TestRoot "${TEST_ROOT}"'
+!else
+    RequestExecutionLevel admin
+    !define TEST_ARGUMENTS ""
+!endif
+SetCompressor /SOLID lzma
+CRCCheck on
+Name "DoThingsBot 2.0.0.17 Character Recovery"
+OutFile "${OUTPUT}"
+InstallDir "C:\Games\Decal Plugins\DoThingsBot"
+ShowInstDetails show
+VIProductVersion "2.0.0.17"
+VIAddVersionKey /LANG=1033 "ProductName" "DoThingsBot"
+VIAddVersionKey /LANG=1033 "FileDescription" "DoThingsBot install, update and registration repair"
+VIAddVersionKey /LANG=1033 "FileVersion" "2.0.0.17"
+VIAddVersionKey /LANG=1033 "LegalCopyright" "DoThingsBot contributors; modified Helix source included"
 
 !define MUI_ABORTWARNING
-
+!define MUI_WELCOMEPAGE_TEXT "Install DoThingsBot with character file recovery fixes.$\r$\n$\r$\nSetup detects an existing installation through Decal, updates its files and repairs its registration. You can also choose a folder for a new installation.$\r$\n$\r$\nClose Asheron's Call before installing. Requires Decal, Virindi Views and .NET Framework 4.8."
 !insertmacro MUI_PAGE_WELCOME
-;!insertmacro MUI_PAGE_COMPONENTS
+!insertmacro MUI_PAGE_LICENSE "${PAYLOAD}\LICENSE"
+!define MUI_DIRECTORYPAGE_TEXT_TOP "Setup has selected a folder using Decal's registration and the installed plugin files. Confirm this folder or choose where DoThingsBot should be installed."
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
+!define MUI_FINISHPAGE_TEXT "DoThingsBot is installed and registered with Decal. Start AC through Decal and log in as the bot. Review its settings and use /dtb start when ready."
 !insertmacro MUI_PAGE_FINISH
-
-!insertmacro MUI_UNPAGE_CONFIRM
-!insertmacro MUI_UNPAGE_INSTFILES
-
-; Set languages (first is default language)
 !insertmacro MUI_LANGUAGE "English"
-!insertmacro MUI_RESERVEFILE_LANGDLL
 
+Var ResultFile
 
-Section "" CoreSection
-; Set Section properties
-	SetOverwrite on
+Function .onInit
+    InitPluginsDir
+    SetOutPath "$PLUGINSDIR"
+    File /oname=Install-DoThingsBot.ps1 "Install-DoThingsBot.ps1"
+    StrCpy $ResultFile "$PLUGINSDIR\destination.txt"
+    nsExec::ExecToStack '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\Install-DoThingsBot.ps1" -Operation Discover -ResultPath "$ResultFile"${TEST_ARGUMENTS}'
+    Pop $0
+    Pop $1
+    FileOpen $2 "$TEMP\DoThingsBot-Setup.log" w
+    FileWrite $2 "Discovery exit $0$\r$\n$1$\r$\n"
+    FileClose $2
+    ${If} $0 != "0"
+        MessageBox MB_OK|MB_ICONSTOP "Setup could not inspect the installation.$\r$\n$1" /SD IDOK
+        SetErrorLevel 1
+        Abort
+    ${EndIf}
+    ${If} $INSTDIR == "C:\Games\Decal Plugins\DoThingsBot"
+        ReadINIStr $INSTDIR "$ResultFile" "Install" "Directory"
+    ${EndIf}
+FunctionEnd
 
-	; Set Section Files and Shortcuts
-	SetOutPath "$INSTDIR\"
-
-	File "${BUILDPATH}\${ASSEMBLY}"
-	File "${BUILDPATH}\Newtonsoft.Json.dll"
-	;File "ADDITIONALFILES"
-
-	SetOutPath "$INSTDIR\Resources"
-	File "${BUILDPATH}\Resources\*.xml"
-
-	SetOutPath "$INSTDIR\Resources\BotProfiles"
-	File "${BUILDPATH}\Resources\BotProfiles\*.xml"
-
-	SetOutPath "$INSTDIR\Resources\BuffProfiles"
-	File "${BUILDPATH}\Resources\BuffProfiles\*.xml"
-
+Section "Install DoThingsBot"
+    SetOutPath "$PLUGINSDIR\payload"
+    File /r "${PAYLOAD}\*"
+    nsExec::ExecToStack '"$SYSDIR\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "$PLUGINSDIR\Install-DoThingsBot.ps1" -Operation Install -Payload "$PLUGINSDIR\payload" -InstallDirectory "$INSTDIR"${TEST_ARGUMENTS}'
+    Pop $0
+    Pop $1
+    FileOpen $2 "$TEMP\DoThingsBot-Setup.log" a
+    FileWrite $2 "Installation exit $0$\r$\n$1$\r$\n"
+    FileClose $2
+    DetailPrint "$1"
+    ${If} $0 != "0"
+        MessageBox MB_OK|MB_ICONSTOP "Installation failed.$\r$\n$1" /SD IDOK
+        SetErrorLevel 1
+        Abort
+    ${EndIf}
+    SetErrorLevel 0
 SectionEnd
-
-Section -FinishSection
-
-	WriteRegStr HKLM "Software\${SOFTWARECOMPANY}\${APPNAME}" "" "$INSTDIR"
-	WriteRegStr HKLM "Software\${SOFTWARECOMPANY}\${APPNAME}" "Version" "${VERSION}"
-
-	;Register in decal
-	WriteRegStr HKLM "Software\Decal\Plugins\${APPGUID}" "" "${APPNAME}"
-	WriteRegDWORD HKLM "Software\Decal\Plugins\${APPGUID}" "Enabled" "1"
-	WriteRegStr HKLM "Software\Decal\Plugins\${APPGUID}" "Object" "${CLASSNAME}"
-	WriteRegStr HKLM "Software\Decal\Plugins\${APPGUID}" "Assembly" "${ASSEMBLY}"
-	WriteRegStr HKLM "Software\Decal\Plugins\${APPGUID}" "Path" "$INSTDIR"
-	WriteRegStr HKLM "Software\Decal\Plugins\${APPGUID}" "Surrogate" "{71A69713-6593-47EC-0002-0000000DECA1}"
-	WriteRegStr HKLM "Software\Decal\Plugins\${APPGUID}" "Uninstaller" "${APPNAME}"
-
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$INSTDIR\uninstall.exe"
-	WriteUninstaller "$INSTDIR\uninstall.exe"
-	;MessageBox MB_OK "Done"
-
-SectionEnd
-
-; Modern install component descriptions
-!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-	!insertmacro MUI_DESCRIPTION_TEXT ${CoreSection} ""
-!insertmacro MUI_FUNCTION_DESCRIPTION_END
-
-;Uninstall section
-Section Uninstall
-
-	;Remove from registry...
-	DeleteRegKey HKLM "Software\${SOFTWARECOMPANY}\${APPNAME}"
-	DeleteRegKey HKLM "Software\Decal\Plugins\${APPGUID}"
-	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
-
-	; Delete self
-	Delete "$INSTDIR\uninstall.exe"
-
-	;Clean up
-	Delete "$INSTDIR\${ASSEMBLY}"
-	Delete "$INSTDIR\Newtonsoft.Json.dll"
-	;Delete "$INSTDIR\ADDITIONALFILES"
-	RMDir "$INSTDIR\"
-
-SectionEnd
-
-; eof

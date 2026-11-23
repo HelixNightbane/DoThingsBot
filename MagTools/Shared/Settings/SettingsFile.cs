@@ -17,10 +17,6 @@ namespace Mag.Shared.Settings {
 
         static string _rootNodeName = "Settings";
 
-        static SettingsFile() {
-            ReloadXmlDocument();
-        }
-
         public static void Init(string filePath, string rootNode = "Settings") {
             XmlDocument = new XmlDocument();
             _documentPath = filePath;
@@ -30,31 +26,95 @@ namespace Mag.Shared.Settings {
             ReloadXmlDocument();
         }
 
-        public static void ReloadXmlDocument() {
+        private static XmlDocument ReadDocument(string path) {
+            var doc = new XmlDocument { XmlResolver = null };
             try {
-
-                if (!String.IsNullOrEmpty(_documentPath) && File.Exists(_documentPath))
-                    XmlDocument.Load(_documentPath);
-                else if (XmlDocument.InnerText.Length > 0)
-                    return;
-                else
-                    XmlDocument.LoadXml("<" + _rootNodeName + "></" + _rootNodeName + ">");
+                using (var stream = File.OpenRead(path)) {
+                    doc.Load(stream);
+                }
+                if (doc.DocumentElement.Name != _rootNodeName)
+                    throw new XmlException("Unexpected settings root in " + path);
+                return doc;
             }
-            catch (Exception ex) {
-                Util.LogException(ex);
-
-                XmlDocument.LoadXml("<" + _rootNodeName + "></" + _rootNodeName + ">");
+            catch (FileNotFoundException) { return null; }
+            catch (XmlException ex) {
+                Util.LogException(new InvalidDataException("Invalid settings in " + path, ex));
+                return null;
             }
         }
 
+        private static XmlNode EnabledNode(XmlDocument doc) {
+            return doc?.DocumentElement.SelectSingleNode("Config/Bot/Enabled");
+        }
+
+        private static bool HasInvalidEnabled(XmlDocument doc) {
+            var node = EnabledNode(doc);
+            return node != null && !bool.TryParse(node.InnerText, out _);
+        }
+
+        public static void ReloadXmlDocument() {
+            var current = ReadDocument(_documentPath);
+            if (current != null && !HasInvalidEnabled(current)) {
+                XmlDocument = current;
+                return;
+            }
+
+            foreach (string suffix in new[] { ".new", ".bak" }) {
+                var backup = ReadDocument(_documentPath + suffix);
+                if (backup == null || HasInvalidEnabled(backup)) continue;
+                if (current == null) {
+                    XmlDocument = backup;
+                    Util.WriteToChat("Recovered settings from " + _documentPath + suffix);
+                    return;
+                }
+                var backupEnabled = EnabledNode(backup);
+                if (backupEnabled != null) {
+                    EnabledNode(current).InnerText = backupEnabled.InnerText;
+                    XmlDocument = current;
+                    Util.WriteToChat("Recovered the bot's Enabled setting from config.xml" + suffix);
+                    return;
+                }
+            }
+
+            if (current != null) {
+                EnabledNode(current).InnerText = bool.FalseString;
+                Util.WriteToChat("Invalid Enabled setting. Use /dtb start when ready.");
+            }
+            else {
+                current = new XmlDocument();
+                current.AppendChild(current.CreateElement(_rootNodeName));
+                if (File.Exists(_documentPath))
+                    Util.WriteToChat("Could not read config.xml or recover a backup. Check the default settings before using /dtb start.");
+            }
+            XmlDocument = current;
+        }
+
         public static void SaveXmlDocument() {
+            string temp = _documentPath + "." + Guid.NewGuid().ToString("N") + ".tmp";
             try {
-                XmlDocument.Save(_documentPath + ".new");
-                File.Copy(_documentPath + ".new", _documentPath, true);
-                File.Delete(_documentPath + ".new");
+                var previous = ReadDocument(_documentPath);
+                if (previous != null && previous.OuterXml == XmlDocument.OuterXml) return;
+                using (var stream = new FileStream(temp, FileMode.CreateNew, FileAccess.Write, FileShare.None)) {
+                    XmlDocument.Save(stream);
+                    stream.Flush(true);
+                }
+                if (File.Exists(_documentPath)) {
+                    string backup = previous == null || HasInvalidEnabled(previous)
+                        ? _documentPath + ".corrupt." + Guid.NewGuid().ToString("N")
+                        : _documentPath + ".bak";
+                    File.Replace(temp, _documentPath, backup);
+                }
+                else {
+                    File.Move(temp, _documentPath);
+                }
                 Util.WriteToDebugLog("Saved config.xml");
             }
             catch(Exception ex) { Util.LogException(ex); }
+            finally {
+                try { File.Delete(temp); }
+                catch (IOException ex) { Util.LogException(ex); }
+                catch (UnauthorizedAccessException ex) { Util.LogException(ex); }
+            }
         }
 
         public static T GetSetting<T>(string xPath, T defaultValue = default(T), string description = "") {
@@ -147,7 +207,7 @@ namespace Mag.Shared.Settings {
         public static void PutSetting(string xPath, List<int> values, string helpText, bool doSave) {
             try {
                 // Before we save a setting, we reload the document to make sure we don't overwrite settings saved from another session.
-                ReloadXmlDocument();
+                if (doSave) ReloadXmlDocument();
 
                 var xpathParts = new List<string>(xPath.Split('/'));
                 XmlNode xmlNode = XmlDocument.SelectSingleNode(_rootNodeName + "/" + String.Join("/", xpathParts.GetRange(0, xpathParts.Count - 1).ToArray()));
@@ -177,7 +237,7 @@ namespace Mag.Shared.Settings {
         public static void PutSetting(string xPath, List<string> values, string helpText, bool doSave) {
             try {
                 // Before we save a setting, we reload the document to make sure we don't overwrite settings saved from another session.
-                ReloadXmlDocument();
+                if (doSave) ReloadXmlDocument();
 
                 var xpathParts = new List<string>(xPath.Split('/'));
 
@@ -218,7 +278,7 @@ namespace Mag.Shared.Settings {
                 }
 
                 // Before we save a setting, we reload the document to make sure we don't overwrite settings saved from another session.
-                ReloadXmlDocument();
+                if (doSave) ReloadXmlDocument();
 
                 XmlNode xmlNode = XmlDocument.SelectSingleNode(_rootNodeName + "/" + xPath);
 
@@ -299,7 +359,7 @@ namespace Mag.Shared.Settings {
             parentNode.RemoveAll();
 
             if (innerTexts.Count == 0) {
-                XmlDocument.Save(_documentPath);
+                SaveXmlDocument();
                 return;
             }
 

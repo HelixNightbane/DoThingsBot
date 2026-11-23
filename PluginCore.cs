@@ -128,7 +128,7 @@ namespace DoThingsBot {
                 Util.TruncateLogFiles();
                 Util.PruneOldLogs();
 
-                Util.WriteToDebugLog("LoginComplete");
+                Util.WriteToDebugLog("LoginComplete DoThingsBot " + Util.GetVersion());
                 Util.WriteToChat(String.Format("Config file: {0}", configFilePath));
 
                 Mag.Shared.Settings.SettingsFile.Init(configFilePath, PluginName);
